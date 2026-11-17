@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -16,31 +16,163 @@
             display: ['Cinzel', 'serif'],
             sans: ['Plus Jakarta Sans', 'sans-serif'],
             devanagari: ['Noto Serif Devanagari', 'serif']
-          },
-          colors: {
-            obsidian: '#0B0706',
-            saffron: '#FF6B00',
-            gold: '#F59E0B',
-            crimson: '#991B1B'
           }
         }
       }
     }
   </script>
   <style>
+    :root {
+      --bg-deep: #0B0706;
+      --bg-card: rgba(19, 12, 9, 0.92);
+      --bg-card-inner: rgba(24, 16, 12, 0.94);
+      --accent-primary: #F59E0B;
+      --accent-secondary: #FF6B00;
+      --accent-tertiary: #FDE68A;
+      --border-glow: rgba(245, 158, 11, 0.32);
+      --shadow-glow: rgba(245, 158, 11, 0.25);
+      --text-main: #F5E6D3;
+      --text-muted: rgba(253, 230, 138, 0.72);
+    }
+
     body {
-      background-color: #0B0706;
-      color: #F5E6D3;
-      background-image:
-        radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 85% 80%, rgba(255, 107, 0, 0.07) 0%, transparent 50%);
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      transition: background-color 0.8s ease, color 0.5s ease;
+      overflow-x: hidden;
     }
-    .gold-border {
-      border: 1px solid rgba(245, 158, 11, 0.25);
+
+    /* Dynamic Theme Surfaces */
+    .epic-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      box-shadow: 0 0 40px -8px var(--shadow-glow), inset 0 0 24px rgba(0,0,0,0.65);
+      position: relative;
+      transition: border-color 0.5s ease, box-shadow 0.5s ease;
     }
-    .gold-glow {
-      box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.22);
+
+    .epic-card::before,
+    .epic-card::after {
+      content: "❖";
+      position: absolute;
+      font-size: 13px;
+      color: var(--accent-primary);
+      opacity: 0.65;
+      pointer-events: none;
     }
+    .epic-card::before { top: 8px; left: 10px; }
+    .epic-card::after { bottom: 8px; right: 10px; }
+
+    .epic-subcard {
+      background: var(--bg-card-inner);
+      border: 1px solid var(--border-glow);
+    }
+
+    .epic-gradient-text {
+      background: linear-gradient(135deg, var(--accent-tertiary) 0%, var(--accent-primary) 50%, var(--accent-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Interactive Mythological Buttons */
+    .mythic-btn {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+    .mythic-btn::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -75%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.32),
+        transparent
+      );
+      transform: rotate(25deg);
+      transition: left 0.65s ease;
+      pointer-events: none;
+    }
+    .mythic-btn:hover::after {
+      left: 135%;
+    }
+    .mythic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px -4px var(--shadow-glow);
+    }
+    .mythic-btn:active {
+      transform: scale(0.95);
+    }
+
+    .mythic-btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: #090504;
+      font-weight: 800;
+      box-shadow: 0 4px 22px -2px var(--shadow-glow);
+    }
+
+    .grantha-pill {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+      border: 1px solid var(--border-glow);
+      background: rgba(8, 5, 4, 0.72);
+    }
+    .grantha-pill:hover {
+      transform: translateY(-2px) scale(1.02);
+      border-color: var(--accent-primary);
+      background: rgba(245, 158, 11, 0.16);
+      box-shadow: 0 6px 18px -4px var(--shadow-glow);
+    }
+    .grantha-pill:active {
+      transform: scale(0.96);
+    }
+
+    /* Temple Torana Divider */
+    .torana-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--accent-primary);
+      opacity: 0.75;
+    }
+    .torana-divider::before,
+    .torana-divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      max-width: 180px;
+      background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+    }
+
+    /* Floating Relic Medallion */
+    @keyframes relicFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(3deg); }
+    }
+    @keyframes spinChakraSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes spinChakraFast {
+      from { transform: rotate(0deg) scale(1.15); }
+      to { transform: rotate(1080deg) scale(1.15); }
+    }
+    .relic-float {
+      animation: relicFloat 4.5s ease-in-out infinite;
+    }
+    .spin-slow {
+      animation: spinChakraSlow 18s linear infinite;
+    }
+    .spin-burst {
+      animation: spinChakraFast 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
     @keyframes kenBurnsSlow {
       0% { transform: scale(1) translate(0, 0); }
       50% { transform: scale(1.06) translate(-1%, -1%); }
@@ -49,55 +181,105 @@
     .animate-ken-burns {
       animation: kenBurnsSlow 18s ease-in-out infinite;
     }
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+
+    /* Mantra Toast Animation */
+    @keyframes mantraRise {
+      0% { opacity: 0; transform: translate(-50%, 18px) scale(0.94); }
+      15% { opacity: 1; transform: translate(-50%, 0px) scale(1); }
+      85% { opacity: 1; transform: translate(-50%, -4px) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -18px) scale(0.96); }
     }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #120C0A;
+    .mantra-toast-anim {
+      animation: mantraRise 3.4s ease forwards;
     }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #78350F;
-      border-radius: 3px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #F59E0B;
-    }
+
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #120C0A; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 3px; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black">
 
+  <!-- BACKGROUND MYTHOLOGICAL UNIVERSE CANVAS -->
+  <canvas id="bg-mythic-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+  <!-- FOREGROUND INTERACTIVE ASTRA / SPARKLE PARTICLE CANVAS -->
+  <canvas id="fg-sparkle-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-50"></canvas>
+
+  <!-- DIVINE MANTRA BLESSING TOAST -->
+  <div id="mantra-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 hidden pointer-events-none">
+    <div class="px-5 py-2.5 rounded-full bg-black/90 border border-amber-400/60 shadow-2xl text-center backdrop-blur-md">
+      <p id="mantra-sanskrit" class="font-devanagari text-sm sm:text-base font-bold text-amber-300"></p>
+      <p id="mantra-meaning" class="text-[11px] text-amber-100/80"></p>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE FLOATING SACRED RELIC MEDALLION (BOTTOM RIGHT) -->
+  <div class="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-2">
+    <button
+      id="sacred-relic-btn"
+      onclick="activateSacredRelic(event)"
+      title="Tap to invoke Sacred Relic Blessing & Astra Wave"
+      class="relic-float group relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-black/85 border-2 border-amber-400/70 shadow-2xl flex items-center justify-center backdrop-blur-md hover:scale-110 active:scale-95 transition cursor-pointer"
+      style="box-shadow: 0 0 28px var(--shadow-glow);"
+    >
+      <div id="relic-svg-container" class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center spin-slow"></div>
+      <span class="absolute -top-2 -left-2 px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-500 text-black shadow">
+        Tap
+      </span>
+    </button>
+  </div>
+
   <!-- TOP NAVIGATION -->
-  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0B0706]/95 border-b border-amber-500/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[5rem] py-2.5 flex items-center justify-between gap-2">
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-black/80 border-b border-amber-500/25">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 min-h-[4.75rem] py-2 flex items-center justify-between gap-2">
       <div class="flex items-center gap-2.5 min-w-0">
-        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-500 via-orange-600 to-red-800 flex items-center justify-center shadow-lg shadow-amber-500/20 border border-amber-300/40 shrink-0">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shadow-lg border border-amber-300/50 shrink-0"
+             style="background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));">
           <span class="font-devanagari text-xl sm:text-2xl font-bold text-black">ॐ</span>
         </div>
         <div class="min-w-0">
           <div class="flex items-center gap-2 flex-wrap">
-            <span class="font-display text-sm sm:text-xl font-bold tracking-wider bg-gradient-to-r from-amber-200 via-amber-400 to-orange-500 bg-clip-text text-transparent truncate">
+            <span class="font-display text-sm sm:text-xl font-extrabold tracking-wider epic-gradient-text truncate">
               SANĀTANA GRANTHA KOSH
             </span>
-            <span class="text-[11px] sm:text-xs px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 font-semibold tracking-wide shrink-0">
+            <span class="text-[11px] sm:text-xs px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-200 font-semibold tracking-wide shrink-0">
               by Pratham Salunke
             </span>
           </div>
-          <p class="text-xs text-amber-200/60 hidden md:block">
-            Complete 307 Sacred Scriptures Codex &bull; Gemini AI Katha &amp; Shastra Oracle
+          <p id="header-era-subtitle" class="text-[11px] text-amber-200/70 truncate">
+            Treta Yuga • Rāmāyaṇa Royal Edition
           </p>
         </div>
       </div>
 
-      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
-        <a href="#oracle-section" class="px-2.5 py-1.5 text-xs sm:text-sm font-medium text-amber-200 hover:text-amber-400 transition hidden sm:inline">
-          AI Oracle
-        </a>
-        <a href="#codex-section" class="px-2.5 py-1.5 text-xs sm:text-sm font-medium text-amber-200 hover:text-amber-400 transition">
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <!-- Switch Epic Era Style Button -->
+        <button
+          onclick="cycleEpicTheme(event)"
+          title="Shift Epic Yuga Style (Changes automatically on every reload)"
+          class="mythic-btn px-2.5 py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold bg-amber-500/15 border border-amber-400/40 text-amber-200 flex items-center gap-1"
+        >
+          <span id="era-icon">🏹</span>
+          <span class="hidden md:inline" id="era-btn-label">Shift Era</span>
+        </button>
+
+        <!-- Sound Toggle -->
+        <button
+          id="sound-toggle-btn"
+          onclick="toggleSacredAudio(event)"
+          title="Toggle Temple Chime & Astra Sound Effects"
+          class="mythic-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-black/60 border border-amber-500/30 text-amber-200"
+        >
+          🔔
+        </button>
+
+        <a href="#codex-section" class="hidden sm:inline px-2.5 py-1.5 text-xs sm:text-sm font-medium text-amber-200 hover:text-amber-400 transition">
           307 Granthas
         </a>
-        <button onclick="openApiModal()" class="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition">
-          <span id="api-status-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+
+        <button onclick="openApiModal()" class="mythic-btn flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs font-semibold bg-amber-500/15 text-amber-200 border border-amber-500/40">
+          <span id="api-status-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
           <span>Settings</span>
         </button>
       </div>
@@ -105,43 +287,52 @@
   </header>
 
   <!-- HERO SECTION -->
-  <section class="relative overflow-hidden py-10 sm:py-14 border-b border-amber-500/15">
+  <section class="relative z-10 overflow-hidden py-10 sm:py-14 border-b border-amber-500/20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-950/60 border border-amber-500/30 text-amber-300 text-xs font-medium mb-5">
-        <span class="font-devanagari text-sm">सत्यं ज्ञानमनन्तं ब्रह्म</span>
+      <!-- Dynamic Epic Era Banner Pill -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/65 border border-amber-500/40 text-amber-200 text-xs font-medium mb-4 backdrop-blur-md">
+        <span id="hero-era-badge" class="font-semibold text-amber-300">🏹 Rāmāyaṇa Edition</span>
         <span>&bull;</span>
-        <span>22 Scriptural Categories &bull; 307 Canonical Texts</span>
+        <span class="font-devanagari text-sm">सत्यं ज्ञानमनन्तं ब्रह्म</span>
+        <span class="hidden sm:inline">&bull;</span>
+        <span class="hidden sm:inline">307 Canonical Texts</span>
       </div>
-      <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-amber-50 leading-tight">
-        SANĀTANA <span class="bg-gradient-to-r from-amber-300 via-amber-500 to-orange-500 bg-clip-text text-transparent">GRANTHA KOSH</span>
+
+      <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-amber-50 leading-tight drop-shadow">
+        SANĀTANA <span class="epic-gradient-text">GRANTHA KOSH</span>
       </h1>
-      <p class="mt-2 font-display text-sm sm:text-base uppercase tracking-[0.25em] text-amber-400/90 font-semibold">
+      <p class="mt-2 font-display text-sm sm:text-base uppercase tracking-[0.28em] text-amber-300 font-bold">
         by Pratham Salunke
       </p>
-      <p class="mt-4 max-w-3xl mx-auto text-sm sm:text-base text-amber-100/75 leading-relaxed">
-        Ask any question, philosophical inquiry, or mythological tale across the Four Vedas, 108 Upanishads, 18 Mahāpurāṇas, 18 Upapurāṇas, Ramayana, Mahabharata, Āgamas, Tantras, Darśanas, and Regional Bhakti Literature—illuminated with context-matched sacred paintings, chapter-by-chapter visual storylines, Sanskrit shlokas, and scriptural synthesis.
+
+      <div class="torana-divider my-4 text-xs tracking-widest uppercase font-display">
+        <span id="hero-sanskrit-motto">श्री राम जय राम जय जय राम</span>
+      </div>
+
+      <p class="mt-2 max-w-3xl mx-auto text-xs sm:text-base text-amber-100/80 leading-relaxed">
+        Ask any question, philosophical inquiry, or mythological tale across the Four Vedas, 108 Upanishads, 18 Mahāpurāṇas, 18 Upapurāṇas, Ramayana, Mahabharata, Āgamas, Tantras, Darśanas, and Regional Bhakti Literature—illuminated with context-matched sacred paintings, chapter storylines, Sanskrit shlokas, and scriptural synthesis.
       </p>
     </div>
   </section>
 
   <!-- ORACLE WORKSPACE -->
-  <section id="oracle-section" class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-    <div class="rounded-2xl bg-[#130C09]/95 gold-border gold-glow p-5 sm:p-8">
+  <section id="oracle-section" class="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+    <div class="epic-card rounded-2xl p-5 sm:p-8 backdrop-blur-md">
       <!-- Mode Selector -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-amber-500/15">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-amber-500/20">
         <div>
           <h2 class="font-display text-xl sm:text-2xl font-bold text-amber-100">
             Divya Katha &amp; Shastra AI Oracle
           </h2>
-          <p class="text-xs sm:text-sm text-amber-200/60">
+          <p class="text-xs sm:text-sm text-amber-200/65">
             Choose an exploration mode and ask anything from Hindu Mythology or Sacred Philosophy
           </p>
         </div>
-        <div class="inline-flex rounded-xl p-1 bg-black/60 border border-amber-500/25 self-start">
-          <button id="btn-mode-story" onclick="setOracleMode('story')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-gradient-to-r from-amber-500 to-orange-600 text-black shadow">
+        <div class="inline-flex rounded-xl p-1 bg-black/70 border border-amber-500/30 self-start">
+          <button id="btn-mode-story" onclick="setOracleMode('story', event)" class="mythic-btn mythic-btn-primary px-4 py-2 rounded-lg text-xs sm:text-sm transition">
             ✨ Illustrated Katha Storyline
           </button>
-          <button id="btn-mode-shastra" onclick="setOracleMode('shastra')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-amber-200/75 hover:text-amber-200">
+          <button id="btn-mode-shastra" onclick="setOracleMode('shastra', event)" class="mythic-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-amber-200/80 hover:text-amber-100">
             📜 Shastra &amp; History Synthesis
           </button>
         </div>
@@ -154,35 +345,36 @@
             id="oracle-input"
             type="text"
             placeholder="Ask any question or tale (e.g., 'Who was Lord Hanuman?', 'Explain Samudra Manthan')"
-            class="flex-1 rounded-xl bg-black/70 border border-amber-500/30 px-4 py-3.5 text-sm sm:text-base text-amber-50 placeholder-amber-200/35 focus:outline-none focus:border-amber-400"
+            class="flex-1 rounded-xl bg-black/75 border border-amber-500/35 px-4 py-3.5 text-sm sm:text-base text-amber-50 placeholder-amber-200/35 focus:outline-none focus:border-amber-400 transition"
             onkeydown="if(event.key === 'Enter') invokeOracle()"
           />
           <button
             id="oracle-submit-btn"
-            onclick="invokeOracle()"
-            class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black font-bold text-sm sm:text-base shadow-lg shadow-orange-600/25 transition flex items-center justify-center gap-2 shrink-0"
+            onclick="invokeOracle(event)"
+            class="mythic-btn mythic-btn-primary px-6 py-3.5 rounded-xl text-sm sm:text-base flex items-center justify-center gap-2 shrink-0 cursor-pointer"
           >
+            <span id="invoke-btn-icon">🏹</span>
             <span>Invoke Grantha Oracle</span>
             <span>➔</span>
           </button>
         </div>
 
         <!-- Sample Quick Prompts -->
-        <div class="mt-3 flex flex-wrap items-center gap-2">
-          <span class="text-xs text-amber-300/60">Try asking:</span>
-          <button onclick="quickPrompt('Who was Lord Hanuman? Explain his birth, Ashtasiddhis, and role in Ramayana')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
+        <div class="mt-3.5 flex flex-wrap items-center gap-2">
+          <span class="text-xs text-amber-300/70 font-medium">Try asking:</span>
+          <button onclick="quickPrompt('Who was Lord Hanuman? Explain his birth, Ashtasiddhis, and role in Ramayana', event)" class="mythic-btn text-xs px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-200">
             🚩 Lord Hanuman
           </button>
-          <button onclick="quickPrompt('Narrate the cosmic story of Samudra Manthan from Bhagavata and Vishnu Purana with inner symbolism')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
+          <button onclick="quickPrompt('Narrate the cosmic story of Samudra Manthan from Bhagavata and Vishnu Purana with inner symbolism', event)" class="mythic-btn text-xs px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-200">
             🌊 Samudra Manthan
           </button>
-          <button onclick="quickPrompt('Explain Nachiketa and Lord Yama dialogue on Atman and immortality in Katha Upanishad')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
+          <button onclick="quickPrompt('Explain Nachiketa and Lord Yama dialogue on Atman and immortality in Katha Upanishad', event)" class="mythic-btn text-xs px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-200">
             🔥 Nachiketa &amp; Yama
           </button>
-          <button onclick="quickPrompt('Narrate the Kurukshetra Bhagavad Gita dialogue between Lord Krishna and Arjuna')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
-            🏹 Krishna &amp; Arjuna (Gita)
+          <button onclick="quickPrompt('Narrate the Kurukshetra Bhagavad Gita dialogue between Lord Krishna and Arjuna', event)" class="mythic-btn text-xs px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-200">
+            ☸️ Krishna &amp; Arjuna (Gita)
           </button>
-          <button onclick="quickPrompt('Explain the cosmic dance of Shiva Nataraja and Shaiva Agama symbolism')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
+          <button onclick="quickPrompt('Explain the cosmic dance of Shiva Nataraja and Shaiva Agama symbolism', event)" class="mythic-btn text-xs px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-200">
             🔱 Shiva Nataraja
           </button>
         </div>
@@ -192,11 +384,11 @@
       <div id="oracle-loading" class="hidden py-14 text-center">
         <div class="inline-block w-14 h-14 rounded-full border-4 border-amber-500/30 border-t-amber-400 animate-spin mb-4"></div>
         <p class="font-display text-lg text-amber-200">Consulting the 307 Sacred Granthas...</p>
-        <p class="text-xs text-amber-200/50 mt-1">Synthesizing Sanskrit shlokas, scene-matched sacred paintings, and philosophical commentaries</p>
+        <p class="text-xs text-amber-200/55 mt-1">Synthesizing Sanskrit shlokas, scene-matched sacred paintings, and philosophical commentaries</p>
       </div>
 
       <!-- Error Message -->
-      <div id="oracle-error" class="hidden mt-6 p-4 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-sm"></div>
+      <div id="oracle-error" class="hidden mt-6 p-4 rounded-xl bg-red-950/75 border border-red-500/45 text-red-200 text-sm"></div>
 
       <!-- Output Area -->
       <div id="oracle-output" class="mt-8"></div>
@@ -204,14 +396,14 @@
   </section>
 
   <!-- 307 SCRIPTURES CODEX DIRECTORY -->
-  <section id="codex-section" class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 flex-1">
+  <section id="codex-section" class="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 flex-1">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
       <div>
         <span class="text-xs font-semibold uppercase tracking-widest text-amber-400">Complete Canonical Index</span>
         <h2 class="font-display text-2xl sm:text-3xl font-bold text-amber-50 mt-1">
           The 307 Sacred Scriptures Codex (22 Categories)
         </h2>
-        <p class="text-xs sm:text-sm text-amber-200/65 mt-1">
+        <p class="text-xs sm:text-sm text-amber-200/70 mt-1">
           Click any scripture below to inspect its philosophical lineage and ask Gemini AI questions scoped directly to that text.
         </p>
       </div>
@@ -223,12 +415,12 @@
           type="text"
           oninput="renderCodex()"
           placeholder="Search 307 texts (e.g., Rigveda, Shiva Sutras, Dasbodh)..."
-          class="rounded-xl bg-[#140D0A] border border-amber-500/30 px-4 py-2.5 text-sm text-amber-50 placeholder-amber-200/40 focus:outline-none focus:border-amber-400 sm:w-72"
+          class="rounded-xl bg-black/75 border border-amber-500/35 px-4 py-2.5 text-sm text-amber-50 placeholder-amber-200/40 focus:outline-none focus:border-amber-400 sm:w-72"
         />
         <select
           id="codex-category-filter"
           onchange="renderCodex()"
-          class="rounded-xl bg-[#140D0A] border border-amber-500/30 px-3.5 py-2.5 text-sm text-amber-200 focus:outline-none focus:border-amber-400"
+          class="rounded-xl bg-black/75 border border-amber-500/35 px-3.5 py-2.5 text-sm text-amber-200 focus:outline-none focus:border-amber-400"
         >
           <option value="ALL">All 22 Categories (307 Texts)</option>
         </select>
@@ -240,7 +432,7 @@
 
   <!-- GRANTHA DEEP-DIVE MODAL -->
   <div id="grantha-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-[#140C09] gold-border rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+    <div class="epic-card rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
       <div class="flex items-start justify-between gap-4 border-b border-amber-500/20 pb-4">
         <div>
           <span id="modal-category" class="text-xs uppercase tracking-widest text-amber-400 font-semibold"></span>
@@ -260,11 +452,11 @@
             id="modal-question-input"
             type="text"
             placeholder="e.g., What are the core teachings, structure, and famous stories in this text?"
-            class="flex-1 rounded-xl bg-black/70 border border-amber-500/30 px-3.5 py-2.5 text-sm text-amber-50"
+            class="flex-1 rounded-xl bg-black/75 border border-amber-500/35 px-3.5 py-2.5 text-sm text-amber-50"
           />
           <button
-            onclick="askFromModal()"
-            class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs sm:text-sm shrink-0"
+            onclick="askFromModal(event)"
+            class="mythic-btn mythic-btn-primary px-4 py-2.5 rounded-xl text-xs sm:text-sm shrink-0"
           >
             Explore in AI Oracle ➔
           </button>
@@ -275,7 +467,7 @@
 
   <!-- GEMINI AI CONFIGURATION MODAL -->
   <div id="api-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-[#140C09] gold-border rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl">
+    <div class="epic-card rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl">
       <div class="flex items-center justify-between border-b border-amber-500/20 pb-3">
         <h3 class="font-display text-lg font-bold text-amber-100">Gemini AI Connection Settings</h3>
         <button onclick="closeApiModal()" class="text-amber-300/70 hover:text-amber-200 text-2xl leading-none">&times;</button>
@@ -287,7 +479,7 @@
             id="config-proxy-url"
             type="text"
             placeholder="https://Sanatani2003.pythonanywhere.com/api/grantha-oracle"
-            class="w-full rounded-lg bg-black/70 border border-amber-500/30 px-3 py-2 text-sm text-amber-50"
+            class="w-full rounded-lg bg-black/75 border border-amber-500/35 px-3 py-2 text-sm text-amber-50"
           />
         </div>
         <div>
@@ -296,12 +488,12 @@
             id="config-api-key"
             type="password"
             placeholder="Leave empty when using Backend Proxy"
-            class="w-full rounded-lg bg-black/70 border border-amber-500/30 px-3 py-2 text-sm text-amber-50"
+            class="w-full rounded-lg bg-black/75 border border-amber-500/35 px-3 py-2 text-sm text-amber-50"
           />
         </div>
         <div>
           <label class="block text-xs font-semibold text-amber-300 mb-1">Gemini Model</label>
-          <select id="config-model" class="w-full rounded-lg bg-black/70 border border-amber-500/30 px-3 py-2 text-sm text-amber-50">
+          <select id="config-model" class="w-full rounded-lg bg-black/75 border border-amber-500/35 px-3 py-2 text-sm text-amber-50">
             <option value="gemini-3.8-flash">gemini-3.8-flash (Recommended)</option>
             <option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite</option>
             <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite</option>
@@ -310,14 +502,14 @@
       </div>
       <div class="mt-6 flex justify-end gap-2">
         <button onclick="closeApiModal()" class="px-4 py-2 rounded-lg border border-amber-500/30 text-xs text-amber-200">Cancel</button>
-        <button onclick="saveApiConfig()" class="px-5 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Save Connection</button>
+        <button onclick="saveApiConfig()" class="mythic-btn mythic-btn-primary px-5 py-2 rounded-lg text-xs">Save Connection</button>
       </div>
     </div>
   </div>
 
   <!-- FOOTER -->
-  <footer class="border-t border-amber-500/20 bg-[#080504] py-8 mt-14">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-amber-200/60">
+  <footer class="relative z-10 border-t border-amber-500/20 bg-black/85 py-8 mt-14 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-amber-200/65">
       <div class="flex items-center gap-2">
         <span class="font-display font-bold text-amber-300">SANĀTANA GRANTHA KOSH</span>
         <span>&bull;</span>
@@ -338,7 +530,510 @@
     const DEFAULT_GEMINI_API_KEY = "";
 
     /********************************************************************
-     * 2. ALL 22 CATEGORIES & 307 CANONICAL SCRIPTURES
+     * 2. FIVE EPIC MYTHOLOGICAL THEMES (AUTO-CHANGES ON EVERY RELOAD!)
+     ********************************************************************/
+    const EPIC_THEMES = [
+      {
+        id: "ramayana",
+        name: "Rāmāyaṇa Edition",
+        subtitle: "Treta Yuga • Ayodhya & Dandakaranya Edition",
+        icon: "🏹",
+        motto: "श्री राम जय राम जय जय राम",
+        blessingMeaning: "Victory to Śrī Rāma — Dharma & Kodanda Dhanush Blessing",
+        bgDeep: "#0C0906",
+        bgCard: "rgba(22, 15, 9, 0.90)",
+        bgInner: "rgba(30, 20, 12, 0.93)",
+        primary: "#F59E0B",
+        secondary: "#EA580C",
+        tertiary: "#FDE68A",
+        particleColors: ["#F59E0B", "#FBBF24", "#10B981", "#FB923C"],
+        relicSvg: `<svg viewBox="0 0 64 64" class="w-full h-full" fill="none" stroke="#FBBF24" stroke-width="2.6">
+          <path d="M18 10 C42 18, 42 46, 18 54" stroke-linecap="round"/>
+          <line x1="18" y1="10" x2="18" y2="54" stroke="#FDE68A" stroke-width="1.4" stroke-dasharray="3 2"/>
+          <line x1="10" y1="32" x2="54" y2="32" stroke="#FB923C" stroke-width="2.5"/>
+          <polygon points="56,32 47,27 49,32 47,37" fill="#FBBF24"/>
+        </svg>`
+      },
+      {
+        id: "mahabharata",
+        name: "Mahābhārata Edition",
+        subtitle: "Dvāpara Yuga • Kurukshetra & Sudarshana Edition",
+        icon: "☸️",
+        motto: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत",
+        blessingMeaning: "Sudarshana Chakra Awakened — Eternal Dharma of Kurukshetra",
+        bgDeep: "#090710",
+        bgCard: "rgba(18, 13, 30, 0.90)",
+        bgInner: "rgba(25, 18, 42, 0.93)",
+        primary: "#FBBF24",
+        secondary: "#DC2626",
+        tertiary: "#FEF08A",
+        particleColors: ["#FBBF24", "#EF4444", "#60A5FA", "#FDE047"],
+        relicSvg: `<svg viewBox="0 0 64 64" class="w-full h-full" fill="none" stroke="#FBBF24" stroke-width="2.2">
+          <circle cx="32" cy="32" r="18" stroke="#FBBF24"/>
+          <circle cx="32" cy="32" r="7" fill="#EF4444" stroke="#FDE047"/>
+          <path d="M32 6 L35 14 L29 14 Z M32 58 L35 50 L29 50 Z M6 32 L14 29 L14 35 Z M58 32 L50 29 L50 35 Z M13 13 L20 17 L17 20 Z M51 51 L44 47 L47 44 Z M51 13 L47 20 L44 17 Z M13 51 L17 44 L20 47 Z" fill="#FBBF24"/>
+        </svg>`
+      },
+      {
+        id: "shiva_tandava",
+        name: "Śiva Tāṇḍava Edition",
+        subtitle: "Kailāsa Cosmic • Natarāja & Trishula Edition",
+        icon: "🔱",
+        motto: "ॐ नमः शिवाय • चिदानन्दरूपः शिवोऽहम्",
+        blessingMeaning: "Damaru & Trishula Resonance — Cosmic Dance of Natarāja",
+        bgDeep: "#070911",
+        bgCard: "rgba(14, 18, 32, 0.90)",
+        bgInner: "rgba(20, 25, 44, 0.93)",
+        primary: "#F97316",
+        secondary: "#38BDF8",
+        tertiary: "#E2E8F0",
+        particleColors: ["#F97316", "#38BDF8", "#E2E8F0", "#FB923C"],
+        relicSvg: `<svg viewBox="0 0 64 64" class="w-full h-full" fill="none" stroke="#38BDF8" stroke-width="2.4">
+          <line x1="32" y1="8" x2="32" y2="56" stroke="#E2E8F0" stroke-width="2.6"/>
+          <path d="M21 14 C21 26, 43 26, 43 14" stroke="#F97316" stroke-width="2.6" stroke-linecap="round"/>
+          <polygon points="32,6 28,14 36,14" fill="#F97316"/>
+          <polygon points="21,10 18,17 24,17" fill="#38BDF8"/>
+          <polygon points="43,10 40,17 46,17" fill="#38BDF8"/>
+          <polygon points="25,36 39,36 32,42 39,48 25,48 32,42" fill="#F97316" stroke="#FDE68A" stroke-width="1.3"/>
+        </svg>`
+      },
+      {
+        id: "devi_shakta",
+        name: "Devī Śākta Edition",
+        subtitle: "Śrī Chakra • Navadurgā & Lalitā Edition",
+        icon: "🪷",
+        motto: "या देवी सर्वभूतेषु शक्तिरूपेण संस्थिता",
+        blessingMeaning: "Śrī Yantra Lotus Bloom — Supreme Grace of Ādi Parāśakti",
+        bgDeep: "#100509",
+        bgCard: "rgba(28, 10, 18, 0.90)",
+        bgInner: "rgba(38, 14, 24, 0.93)",
+        primary: "#FB7185",
+        secondary: "#F59E0B",
+        tertiary: "#FECDD3",
+        particleColors: ["#FB7185", "#F43F5E", "#FBBF24", "#FDA4AF"],
+        relicSvg: `<svg viewBox="0 0 64 64" class="w-full h-full" fill="none" stroke="#FB7185" stroke-width="2">
+          <polygon points="32,10 52,46 12,46" stroke="#FBBF24"/>
+          <polygon points="32,54 52,18 12,18" stroke="#FB7185"/>
+          <circle cx="32" cy="32" r="6" fill="#F43F5E" stroke="#FDE68A"/>
+          <circle cx="32" cy="32" r="24" stroke="#FBBF24" stroke-dasharray="4 3"/>
+        </svg>`
+      },
+      {
+        id: "vaikuntha_samudra",
+        name: "Vaikuṇṭha & Kṣīra Sāgara",
+        subtitle: "Satya Yuga • Samudra Manthan & Panchajanya Edition",
+        icon: "🐚",
+        motto: "ॐ नमो भगवते वासुदेवाय",
+        blessingMeaning: "Panchajanya Shankha Echo — Cosmic Ocean of Vaikuṇṭha",
+        bgDeep: "#050B0E",
+        bgCard: "rgba(10, 22, 28, 0.90)",
+        bgInner: "rgba(14, 30, 38, 0.93)",
+        primary: "#2DD4BF",
+        secondary: "#FACC15",
+        tertiary: "#CCFBF1",
+        particleColors: ["#2DD4BF", "#FACC15", "#38BDF8", "#99F6E4"],
+        relicSvg: `<svg viewBox="0 0 64 64" class="w-full h-full" fill="none" stroke="#2DD4BF" stroke-width="2.3">
+          <path d="M32 10 C46 14, 50 32, 38 46 C32 52, 24 54, 22 48 C20 40, 28 36, 34 38 C39 40, 40 30, 33 26 C26 22, 22 30, 26 35" stroke="#CCFBF1" stroke-linecap="round"/>
+          <circle cx="32" cy="32" r="24" stroke="#FACC15" stroke-dasharray="3 4"/>
+        </svg>`
+      }
+    ];
+
+    let activeThemeIndex = 0;
+    let activeTheme = EPIC_THEMES[0];
+    let audioEnabled = true;
+    let audioCtx = null;
+
+    function selectInitialEpicTheme() {
+      const lastIdx = parseInt(localStorage.getItem("GK_LAST_THEME_IDX") ?? "-1", 10);
+      // Pick a different theme on every page reload
+      let nextIdx = (lastIdx + 1) % EPIC_THEMES.length;
+      if (isNaN(nextIdx) || nextIdx < 0) {
+        nextIdx = Math.floor(Math.random() * EPIC_THEMES.length);
+      }
+      localStorage.setItem("GK_LAST_THEME_IDX", String(nextIdx));
+      applyEpicTheme(nextIdx);
+    }
+
+    function applyEpicTheme(idx) {
+      activeThemeIndex = idx % EPIC_THEMES.length;
+      activeTheme = EPIC_THEMES[activeThemeIndex];
+
+      const root = document.documentElement;
+      root.style.setProperty("--bg-deep", activeTheme.bgDeep);
+      root.style.setProperty("--bg-card", activeTheme.bgCard);
+      root.style.setProperty("--bg-card-inner", activeTheme.bgInner);
+      root.style.setProperty("--accent-primary", activeTheme.primary);
+      root.style.setProperty("--accent-secondary", activeTheme.secondary);
+      root.style.setProperty("--accent-tertiary", activeTheme.tertiary);
+      root.style.setProperty("--border-glow", hexToRgba(activeTheme.primary, 0.34));
+      root.style.setProperty("--shadow-glow", hexToRgba(activeTheme.primary, 0.28));
+
+      document.getElementById("header-era-subtitle").textContent = activeTheme.subtitle;
+      document.getElementById("era-icon").textContent = activeTheme.icon;
+      document.getElementById("hero-era-badge").textContent = `${activeTheme.icon} ${activeTheme.name}`;
+      document.getElementById("hero-sanskrit-motto").textContent = activeTheme.motto;
+      document.getElementById("invoke-btn-icon").textContent = activeTheme.icon;
+      document.getElementById("relic-svg-container").innerHTML = activeTheme.relicSvg;
+    }
+
+    function cycleEpicTheme(evt) {
+      const nextIdx = (activeThemeIndex + 1) % EPIC_THEMES.length;
+      localStorage.setItem("GK_LAST_THEME_IDX", String(nextIdx));
+      applyEpicTheme(nextIdx);
+      playTempleChime(528);
+      showMantraToast(activeTheme.motto, activeTheme.blessingMeaning);
+      if (evt) spawnSparkleBurst(evt.clientX, evt.clientY, 24);
+    }
+
+    function hexToRgba(hex, alpha) {
+      const clean = hex.replace("#", "");
+      const num = parseInt(clean, 16);
+      const r = (num >> 16) & 255;
+      const g = (num >> 8) & 255;
+      const b = num & 255;
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    /********************************************************************
+     * 3. SACRED TEMPLE CHIME & ASTRA SOUND SYNTHESIZER (WEB AUDIO API)
+     ********************************************************************/
+    function toggleSacredAudio(evt) {
+      audioEnabled = !audioEnabled;
+      const btn = document.getElementById("sound-toggle-btn");
+      btn.textContent = audioEnabled ? "🔔" : "🔕";
+      if (audioEnabled) playTempleChime(660);
+      if (evt) spawnSparkleBurst(evt.clientX, evt.clientY, 12);
+    }
+
+    function playTempleChime(freq = 528) {
+      if (!audioEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const now = audioCtx.currentTime;
+
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc1.type = "sine";
+        osc2.type = "triangle";
+        osc1.frequency.setValueAtTime(freq, now);
+        osc2.frequency.setValueAtTime(freq * 1.5, now);
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.08, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.1);
+
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + 1.15);
+        osc2.stop(now + 1.15);
+      } catch (e) {}
+    }
+
+    function showMantraToast(sanskrit, meaning) {
+      const toast = document.getElementById("mantra-toast");
+      document.getElementById("mantra-sanskrit").textContent = sanskrit;
+      document.getElementById("mantra-meaning").textContent = meaning;
+      toast.classList.remove("hidden");
+      toast.classList.remove("mantra-toast-anim");
+      void toast.offsetWidth;
+      toast.classList.add("mantra-toast-anim");
+    }
+
+    function activateSacredRelic(evt) {
+      const iconBox = document.getElementById("relic-svg-container");
+      iconBox.classList.remove("spin-burst");
+      void iconBox.offsetWidth;
+      iconBox.classList.add("spin-burst");
+
+      playTempleChime(432);
+      showMantraToast(activeTheme.motto, activeTheme.blessingMeaning);
+
+      const cx = evt?.clientX || window.innerWidth - 50;
+      const cy = evt?.clientY || window.innerHeight - 50;
+      spawnSparkleBurst(cx, cy, 36);
+      spawnAstraWave(cx, cy);
+    }
+
+    /********************************************************************
+     * 4. FOREGROUND & BACKGROUND MYTHOLOGICAL ANIMATION ENGINES
+     ********************************************************************/
+    const fgParticles = [];
+    const fgWaves = [];
+
+    function spawnSparkleBurst(x, y, count = 16) {
+      const colors = activeTheme.particleColors;
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
+        const speed = 1.6 + Math.random() * 4.4;
+        fgParticles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 0.7,
+          size: 2.2 + Math.random() * 3.5,
+          alpha: 1,
+          decay: 0.018 + Math.random() * 0.015,
+          color: colors[i % colors.length],
+          shape: i % 3 === 0 ? "petal" : "star"
+        });
+      }
+    }
+
+    function spawnAstraWave(x, y) {
+      fgWaves.push({
+        x,
+        y,
+        radius: 12,
+        maxRadius: Math.max(window.innerWidth, window.innerHeight) * 0.55,
+        alpha: 0.75,
+        color: activeTheme.primary
+      });
+    }
+
+    // Global click & pointer trail listeners for interactive feel
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("button, a");
+      if (btn) {
+        spawnSparkleBurst(e.clientX, e.clientY, 15);
+        playTempleChime(587.33);
+      }
+    });
+
+    let lastTrailTime = 0;
+    document.addEventListener("pointermove", (e) => {
+      const now = Date.now();
+      if (now - lastTrailTime < 45) return;
+      lastTrailTime = now;
+      fgParticles.push({
+        x: e.clientX,
+        y: e.clientY,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: -0.6 - Math.random() * 0.8,
+        size: 1.8 + Math.random() * 2,
+        alpha: 0.75,
+        decay: 0.025,
+        color: activeTheme.primary,
+        shape: "star"
+      });
+    });
+
+    function initMythologicalCanvases() {
+      const bgCanvas = document.getElementById("bg-mythic-canvas");
+      const bgCtx = bgCanvas.getContext("2d");
+      const fgCanvas = document.getElementById("fg-sparkle-canvas");
+      const fgCtx = fgCanvas.getContext("2d");
+
+      function resize() {
+        bgCanvas.width = window.innerWidth;
+        bgCanvas.height = window.innerHeight;
+        fgCanvas.width = window.innerWidth;
+        fgCanvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      // Ambient drifting mythological motes (lotus petals, fire embers, stars)
+      const ambientMotes = Array.from({ length: 42 }, (_, i) => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: 1.5 + Math.random() * 3.5,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: -0.25 - Math.random() * 0.55,
+        phase: Math.random() * Math.PI * 2,
+        kind: i % 4 === 0 ? "petal" : "ember"
+      }));
+
+      // Golden Arrows / Astras streaking occasionally across background sky
+      const skyAstras = [];
+      let tick = 0;
+
+      function renderLoop() {
+        tick += 0.012;
+
+        // 1. BACKGROUND CANVAS: Cosmic Mandala + Theme-Specific Mythic Objects
+        bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+        const cx = bgCanvas.width / 2;
+        const cy = bgCanvas.height * 0.36;
+
+        // Ambient Radial Aura
+        const aura = bgCtx.createRadialGradient(cx, cy, 20, cx, cy, Math.max(bgCanvas.width, bgCanvas.height) * 0.65);
+        aura.addColorStop(0, hexToRgba(activeTheme.primary, 0.12));
+        aura.addColorStop(0.5, hexToRgba(activeTheme.secondary, 0.05));
+        aura.addColorStop(1, "transparent");
+        bgCtx.fillStyle = aura;
+        bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+        // Rotating Sacred Cosmic Mandala / Sudarshana / Sri Yantra in Background
+        bgCtx.save();
+        bgCtx.translate(cx, cy);
+        bgCtx.strokeStyle = hexToRgba(activeTheme.primary, 0.14);
+        bgCtx.lineWidth = 1.2;
+
+        const baseRadius = Math.min(bgCanvas.width, bgCanvas.height) * 0.34;
+        for (let ring = 1; ring <= 3; ring++) {
+          const r = (baseRadius * ring) / 3;
+          bgCtx.beginPath();
+          bgCtx.arc(0, 0, r, 0, Math.PI * 2);
+          bgCtx.stroke();
+
+          const spokes = activeTheme.id === "mahabharata" ? 16 : activeTheme.id === "devi_shakta" ? 9 : 12;
+          for (let s = 0; s < spokes; s++) {
+            const ang = (s * Math.PI * 2) / spokes + (ring % 2 === 0 ? tick * 0.35 : -tick * 0.25);
+            const sx = Math.cos(ang) * r;
+            const sy = Math.sin(ang) * r;
+            bgCtx.beginPath();
+            bgCtx.fillStyle = hexToRgba(activeTheme.primary, 0.28);
+            bgCtx.arc(sx, sy, 2.2, 0, Math.PI * 2);
+            bgCtx.fill();
+          }
+        }
+
+        // Theme-specific sacred geometric core
+        bgCtx.rotate(tick * 0.18);
+        bgCtx.strokeStyle = hexToRgba(activeTheme.secondary, 0.18);
+        const triCount = activeTheme.id === "devi_shakta" ? 4 : 2;
+        for (let tIdx = 0; tIdx < triCount; tIdx++) {
+          bgCtx.rotate(Math.PI / triCount);
+          bgCtx.beginPath();
+          for (let k = 0; k < 3; k++) {
+            const a = (k * Math.PI * 2) / 3;
+            const px = Math.cos(a) * (baseRadius * 0.65);
+            const py = Math.sin(a) * (baseRadius * 0.65);
+            if (k === 0) bgCtx.moveTo(px, py);
+            else bgCtx.lineTo(px, py);
+          }
+          bgCtx.closePath();
+          bgCtx.stroke();
+        }
+        bgCtx.restore();
+
+        // Spawn periodic Golden Arrow / Divya Astra streak across sky
+        if (Math.random() < 0.012 && skyAstras.length < 3) {
+          const fromLeft = Math.random() > 0.5;
+          skyAstras.push({
+            x: fromLeft ? -60 : bgCanvas.width + 60,
+            y: 70 + Math.random() * (bgCanvas.height * 0.45),
+            vx: fromLeft ? 5.5 + Math.random() * 3 : -(5.5 + Math.random() * 3),
+            vy: -0.6 + Math.random() * 1.2,
+            life: 1
+          });
+        }
+
+        for (let i = skyAstras.length - 1; i >= 0; i--) {
+          const a = skyAstras[i];
+          a.x += a.vx;
+          a.y += a.vy;
+          a.life -= 0.006;
+
+          bgCtx.save();
+          const grad = bgCtx.createLinearGradient(a.x, a.y, a.x - a.vx * 18, a.y - a.vy * 18);
+          grad.addColorStop(0, hexToRgba(activeTheme.tertiary, 0.65 * a.life));
+          grad.addColorStop(1, "transparent");
+          bgCtx.strokeStyle = grad;
+          bgCtx.lineWidth = 2.2;
+          bgCtx.beginPath();
+          bgCtx.moveTo(a.x, a.y);
+          bgCtx.lineTo(a.x - a.vx * 18, a.y - a.vy * 18);
+          bgCtx.stroke();
+          bgCtx.restore();
+
+          if (a.life <= 0 || a.x < -120 || a.x > bgCanvas.width + 120) {
+            skyAstras.splice(i, 1);
+          }
+        }
+
+        // Drifting Ambient Petals / Embers
+        ambientMotes.forEach((m, idx) => {
+          m.x += m.vx + Math.sin(tick + m.phase) * 0.25;
+          m.y += m.vy;
+          if (m.y < -12) {
+            m.y = bgCanvas.height + 12;
+            m.x = Math.random() * bgCanvas.width;
+          }
+          if (m.x < -12) m.x = bgCanvas.width + 12;
+          if (m.x > bgCanvas.width + 12) m.x = -12;
+
+          const col = activeTheme.particleColors[idx % activeTheme.particleColors.length];
+          bgCtx.save();
+          bgCtx.translate(m.x, m.y);
+          bgCtx.rotate(tick + m.phase);
+          bgCtx.fillStyle = hexToRgba(col, 0.42);
+          if (m.kind === "petal") {
+            bgCtx.beginPath();
+            bgCtx.ellipse(0, 0, m.r * 1.8, m.r * 0.85, 0, 0, Math.PI * 2);
+            bgCtx.fill();
+          } else {
+            bgCtx.beginPath();
+            bgCtx.arc(0, 0, m.r, 0, Math.PI * 2);
+            bgCtx.fill();
+          }
+          bgCtx.restore();
+        });
+
+        // 2. FOREGROUND CANVAS: Interactive Click Sparkles & Astra Waves
+        fgCtx.clearRect(0, 0, fgCanvas.width, fgCanvas.height);
+
+        for (let i = fgWaves.length - 1; i >= 0; i--) {
+          const w = fgWaves[i];
+          w.radius += 11;
+          w.alpha *= 0.94;
+          fgCtx.save();
+          fgCtx.strokeStyle = hexToRgba(w.color, w.alpha);
+          fgCtx.lineWidth = 2.5;
+          fgCtx.beginPath();
+          fgCtx.arc(w.x, w.y, w.radius, 0, Math.PI * 2);
+          fgCtx.stroke();
+          fgCtx.restore();
+          if (w.radius >= w.maxRadius || w.alpha < 0.02) {
+            fgWaves.splice(i, 1);
+          }
+        }
+
+        for (let i = fgParticles.length - 1; i >= 0; i--) {
+          const p = fgParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.04; // gentle gravity
+          p.alpha -= p.decay;
+
+          fgCtx.save();
+          fgCtx.translate(p.x, p.y);
+          fgCtx.fillStyle = hexToRgba(p.color, Math.max(0, p.alpha));
+          if (p.shape === "petal") {
+            fgCtx.rotate(p.x * 0.05);
+            fgCtx.beginPath();
+            fgCtx.ellipse(0, 0, p.size * 1.6, p.size * 0.75, 0, 0, Math.PI * 2);
+            fgCtx.fill();
+          } else {
+            fgCtx.beginPath();
+            fgCtx.arc(0, 0, p.size, 0, Math.PI * 2);
+            fgCtx.fill();
+          }
+          fgCtx.restore();
+
+          if (p.alpha <= 0) {
+            fgParticles.splice(i, 1);
+          }
+        }
+
+        requestAnimationFrame(renderLoop);
+      }
+
+      renderLoop();
+    }
+
+    /********************************************************************
+     * 5. ALL 22 CATEGORIES & 307 CANONICAL SCRIPTURES
      ********************************************************************/
     const SCRIPTURES_CODEX = [
       {
@@ -471,7 +1166,7 @@
     ];
 
     /********************************************************************
-     * 3. STATE & CONFIGURATION
+     * 6. ORACLE & VISUAL ART STATE
      ********************************************************************/
     let currentMode = "story";
     let currentStoryData = null;
@@ -524,11 +1219,11 @@
       const btnStory = document.getElementById("btn-mode-story");
       const btnShastra = document.getElementById("btn-mode-shastra");
       if (mode === "story") {
-        btnStory.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-gradient-to-r from-amber-500 to-orange-600 text-black shadow";
-        btnShastra.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-amber-200/75 hover:text-amber-200";
+        btnStory.className = "mythic-btn mythic-btn-primary px-4 py-2 rounded-lg text-xs sm:text-sm transition";
+        btnShastra.className = "mythic-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-amber-200/80 hover:text-amber-100";
       } else {
-        btnShastra.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-gradient-to-r from-amber-500 to-orange-600 text-black shadow";
-        btnStory.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-amber-200/75 hover:text-amber-200";
+        btnShastra.className = "mythic-btn mythic-btn-primary px-4 py-2 rounded-lg text-xs sm:text-sm transition";
+        btnStory.className = "mythic-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-amber-200/80 hover:text-amber-100";
       }
     }
 
@@ -538,9 +1233,7 @@
     }
 
     /********************************************************************
-     * 4. STRICT CONTEXT-VERIFIED WIKIMEDIA ART FETCHER
-     * Rejects any image whose filename does not explicitly contain the
-     * subject keywords of the query/chapter (zero unrelated statues).
+     * 7. STRICT CONTEXT-VERIFIED WIKIMEDIA ART & AI SCENE PAINTING
      ********************************************************************/
     const STOP_WORDS = new Set([
       "who", "was", "what", "is", "the", "of", "and", "in", "to", "a", "an",
@@ -582,7 +1275,6 @@
           if (!imgUrl || lowerTitle.endsWith(".svg") || lowerTitle.endsWith(".pdf")) continue;
           if (BLOCKED_WORDS.some(b => lowerTitle.includes(b))) continue;
 
-          // Strict verification: filename MUST contain at least one actual subject keyword
           const matchesSubject = requiredKeywords.some(kw => lowerTitle.includes(kw));
           if (!matchesSubject) continue;
 
@@ -599,9 +1291,6 @@
       }
     }
 
-    /********************************************************************
-     * 5. AI SCENE PAINTING GENERATOR (TAILORED TO EXACT CHAPTER TEXT)
-     ********************************************************************/
     async function paintSceneFromText(promptText) {
       const cfg = getApiConfig();
       if (!cfg.proxyUrl) return null;
@@ -623,7 +1312,7 @@
     async function autoPaintAllChapters(sessionId, storyData) {
       const chapters = storyData?.chapters || [];
       for (let i = 0; i < chapters.length; i++) {
-        if (sessionId !== activeSessionId) return; // User started a new query
+        if (sessionId !== activeSessionId) return;
         const ch = chapters[i];
         const scenePrompt = `${storyData.title} — ${ch.chapterTitle}. ${ch.aiArtPrompt || ch.storyNarrative.slice(0, 220)}`;
         const aiUrl = await paintSceneFromText(scenePrompt);
@@ -648,7 +1337,7 @@
     }
 
     /********************************************************************
-     * 6. CALLING GEMINI AI
+     * 8. CALLING GEMINI AI
      ********************************************************************/
     async function callGeminiJSON(systemInstruction, userPrompt) {
       const cfg = getApiConfig();
@@ -703,7 +1392,7 @@
     }
 
     /********************************************************************
-     * 7. ORACLE INVOCATION & CONTEXT-MATCHED VISUAL RENDERING
+     * 9. ORACLE INVOCATION & RENDERING
      ********************************************************************/
     async function invokeOracle() {
       const query = document.getElementById("oracle-input").value.trim();
@@ -753,7 +1442,6 @@ Provide exactly 4 chapters.`;
         currentStoryData = result;
         currentChapterIndex = 0;
 
-        // Fetch strictly verified subject-matched art while custom AI paintings render
         const subject = result.mainDeityOrSubject || result.title || query;
         const keywords = extractSubjectKeywords(`${subject} ${query}`);
         const verifiedPool = await fetchStrictSubjectArt(subject, keywords, 4);
@@ -766,8 +1454,7 @@ Provide exactly 4 chapters.`;
         ];
 
         renderOracleResult(result);
-
-        // Automatically generate custom AI illustrations matching each chapter's exact text
+        spawnAstraWave(window.innerWidth / 2, window.innerHeight * 0.35);
         autoPaintAllChapters(thisSession, result);
       } catch (err) {
         errorEl.textContent = err.message;
@@ -792,7 +1479,7 @@ Provide exactly 4 chapters.`;
       const g2 = galleryImages[2] || available[2 % available.length];
 
       container.innerHTML = `
-        <div class="grid grid-cols-12 gap-2.5 mb-7 rounded-2xl overflow-hidden border border-amber-500/30 bg-black/80 p-2">
+        <div class="grid grid-cols-12 gap-2.5 mb-7 rounded-2xl overflow-hidden border border-amber-500/35 bg-black/80 p-2 shadow-xl">
           <div class="col-span-7 relative rounded-xl overflow-hidden h-56 sm:h-72 bg-[#160E0A]">
             <img src="${g0.url}" alt="${g0.caption}" class="w-full h-full object-cover hover:scale-105 transition duration-700" />
             <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-2.5">
@@ -833,23 +1520,20 @@ Provide exactly 4 chapters.`;
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
             <!-- Left: Dynamic Chapter Illustration Panel -->
             <div class="lg:col-span-5 rounded-2xl bg-black border border-amber-500/35 overflow-hidden flex flex-col justify-between relative min-h-[360px]">
-              <div id="chapter-visual-frame" class="w-full h-full min-h-[360px] relative overflow-hidden bg-[#140B08]">
-                <!-- Populated dynamically per Adhyaya -->
-              </div>
+              <div id="chapter-visual-frame" class="w-full h-full min-h-[360px] relative overflow-hidden bg-[#140B08]"></div>
 
-              <!-- Overlay Controls -->
               <div class="p-3.5 bg-gradient-to-t from-black via-black/90 to-transparent absolute bottom-0 inset-x-0 flex flex-wrap items-center justify-between gap-2">
-                <button id="btn-paint-ai" onclick="regenerateCurrentChapterArt()" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black text-xs font-bold shadow transition">
+                <button id="btn-paint-ai" onclick="regenerateCurrentChapterArt()" class="mythic-btn mythic-btn-primary px-3 py-1.5 rounded-lg text-xs transition">
                   🎨 Re-Paint Scene
                 </button>
-                <button onclick="narrateCurrentChapter()" class="px-3 py-1.5 rounded-lg bg-black/80 hover:bg-amber-500/25 border border-amber-400/50 text-amber-200 text-xs font-semibold transition">
+                <button onclick="narrateCurrentChapter()" class="mythic-btn px-3 py-1.5 rounded-lg bg-black/80 hover:bg-amber-500/25 border border-amber-400/50 text-amber-200 text-xs font-semibold transition">
                   🔊 Listen Narration
                 </button>
               </div>
             </div>
 
             <!-- Right: Chapter Narrative & Sanskrit Shloka -->
-            <div class="lg:col-span-7 rounded-2xl bg-[#18100C] border border-amber-500/25 p-5 sm:p-6 flex flex-col justify-between">
+            <div class="lg:col-span-7 epic-subcard rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between gap-2 border-b border-amber-500/15 pb-3">
                   <span id="chapter-badge" class="text-xs font-bold uppercase tracking-widest text-amber-400"></span>
@@ -860,7 +1544,7 @@ Provide exactly 4 chapters.`;
                 <p id="chapter-narrative" class="mt-3 text-sm sm:text-base text-amber-100/85 leading-relaxed"></p>
 
                 <!-- Shloka Box -->
-                <div class="mt-5 p-4 rounded-xl bg-black/60 border border-amber-500/30">
+                <div class="mt-5 p-4 rounded-xl bg-black/65 border border-amber-500/30">
                   <p id="chapter-shloka" class="font-devanagari text-base sm:text-lg text-amber-300 font-semibold leading-relaxed"></p>
                   <p id="chapter-translit" class="text-xs italic text-amber-200/60 mt-1"></p>
                   <p id="chapter-translation" class="text-xs sm:text-sm text-amber-100/90 mt-2 border-t border-amber-500/15 pt-2"></p>
@@ -875,10 +1559,10 @@ Provide exactly 4 chapters.`;
 
               <!-- Chapter Controls -->
               <div class="mt-6 pt-4 border-t border-amber-500/15 flex items-center justify-between">
-                <button onclick="prevChapter()" class="px-4 py-2 rounded-lg border border-amber-500/30 hover:bg-amber-500/15 text-xs font-semibold text-amber-200">
+                <button onclick="prevChapter()" class="mythic-btn px-4 py-2 rounded-lg border border-amber-500/35 hover:bg-amber-500/15 text-xs font-semibold text-amber-200">
                   ← Previous Adhyāya
                 </button>
-                <button onclick="nextChapter()" class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold">
+                <button onclick="nextChapter()" class="mythic-btn mythic-btn-primary px-4 py-2 rounded-lg text-xs">
                   Next Adhyāya →
                 </button>
               </div>
@@ -887,13 +1571,13 @@ Provide exactly 4 chapters.`;
 
           <!-- Shastra & Philosophical Synthesis Row -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <div class="p-5 rounded-2xl bg-[#160E0B] border border-amber-500/20">
+            <div class="epic-subcard p-5 rounded-2xl">
               <h4 class="font-display text-base font-bold text-amber-300">🏛️ Ṣaḍdarśana &amp; Vedānta Perspective</h4>
               <p class="text-xs sm:text-sm text-amber-100/80 mt-2 leading-relaxed">
                 ${data.philosophicalSynthesis?.darshanaPerspective || ""}
               </p>
             </div>
-            <div class="p-5 rounded-2xl bg-[#160E0B] border border-amber-500/20">
+            <div class="epic-subcard p-5 rounded-2xl">
               <h4 class="font-display text-base font-bold text-amber-300">📜 Cross-Scriptural &amp; Historical Synthesis</h4>
               <p class="text-xs sm:text-sm text-amber-100/80 mt-2 leading-relaxed">
                 ${data.philosophicalSynthesis?.historicalAndTextualNotes || ""}
@@ -1007,7 +1691,7 @@ Provide exactly 4 chapters.`;
     }
 
     /********************************************************************
-     * 8. RENDER 307 SCRIPTURES CODEX & DEEP-DIVE MODAL
+     * 10. RENDER 307 SCRIPTURES CODEX & DEEP-DIVE MODAL
      ********************************************************************/
     function populateCategoryDropdown() {
       const sel = document.getElementById("codex-category-filter");
@@ -1049,9 +1733,9 @@ Provide exactly 4 chapters.`;
                 ${g.items.map(item => `
                   <button
                     onclick="openGranthaModal('${item.replace(/'/g, "\\'")}', '${cat.category.replace(/'/g, "\\'")}')"
-                    class="px-3.5 py-2 rounded-xl bg-black/60 hover:bg-amber-500/20 border border-amber-500/25 hover:border-amber-400 text-xs sm:text-sm text-amber-100 transition text-left flex items-center gap-2 group"
+                    class="grantha-pill px-3.5 py-2 rounded-xl text-xs sm:text-sm text-amber-100 text-left flex items-center gap-2 group cursor-pointer"
                   >
-                    <span class="text-amber-400 group-hover:scale-110 transition">📜</span>
+                    <span class="text-amber-400 group-hover:rotate-12 transition-transform">📜</span>
                     <span>${item}</span>
                   </button>
                 `).join("")}
@@ -1060,9 +1744,9 @@ Provide exactly 4 chapters.`;
           `).join("");
 
         const card = document.createElement("div");
-        card.className = "rounded-2xl bg-[#130C09]/90 gold-border p-5 sm:p-6";
+        card.className = "epic-card rounded-2xl p-5 sm:p-6 backdrop-blur-sm";
         card.innerHTML = `
-          <h3 class="font-display text-lg sm:text-xl font-bold text-amber-200 border-b border-amber-500/15 pb-2.5">
+          <h3 class="font-display text-lg sm:text-xl font-bold text-amber-200 border-b border-amber-500/20 pb-2.5">
             ${cat.category}
           </h3>
           ${groupsHtml}
@@ -1101,6 +1785,8 @@ Provide exactly 4 chapters.`;
 
     // Initialize on load
     window.addEventListener("DOMContentLoaded", () => {
+      selectInitialEpicTheme();
+      initMythologicalCanvases();
       updateApiStatusBadge();
       populateCategoryDropdown();
       renderCodex();
