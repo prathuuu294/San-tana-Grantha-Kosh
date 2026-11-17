@@ -173,13 +173,30 @@
       animation: spinChakraFast 0.9s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    @keyframes kenBurnsSlow {
+    /* Cinematic Camera Pan & Zoom */
+    @keyframes cinemaCameraPan {
       0% { transform: scale(1) translate(0, 0); }
-      50% { transform: scale(1.06) translate(-1%, -1%); }
+      50% { transform: scale(1.08) translate(-1.2%, -0.8%); }
       100% { transform: scale(1) translate(0, 0); }
     }
-    .animate-ken-burns {
-      animation: kenBurnsSlow 18s ease-in-out infinite;
+    .animate-cinema-pan {
+      animation: cinemaCameraPan 20s ease-in-out infinite;
+    }
+
+    /* Cinematic Shimmer Placeholder */
+    @keyframes cinemaShimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .cinema-skeleton {
+      background: linear-gradient(
+        110deg,
+        rgba(20, 12, 8, 0.95) 25%,
+        rgba(245, 158, 11, 0.14) 50%,
+        rgba(20, 12, 8, 0.95) 75%
+      );
+      background-size: 200% 100%;
+      animation: cinemaShimmer 2.2s linear infinite;
     }
 
     /* Mantra Toast Animation */
@@ -310,7 +327,7 @@
       </div>
 
       <p class="mt-2 max-w-3xl mx-auto text-xs sm:text-base text-amber-100/80 leading-relaxed">
-        Ask any question, philosophical inquiry, or mythological tale across the Four Vedas, 108 Upanishads, 18 Mahāpurāṇas, 18 Upapurāṇas, Ramayana, Mahabharata, Āgamas, Tantras, Darśanas, and Regional Bhakti Literature—illuminated with context-matched sacred paintings, chapter storylines, Sanskrit shlokas, and scriptural synthesis.
+        Ask any question, philosophical inquiry, or mythological tale across the Four Vedas, 108 Upanishads, 18 Mahāpurāṇas, 18 Upapurāṇas, Ramayana, Mahabharata, Āgamas, Tantras, Darśanas, and Regional Bhakti Literature—brought to life with AI-generated epic movie scenes, legendary character visuals, Sanskrit shlokas, and scriptural synthesis.
       </p>
     </div>
   </section>
@@ -330,7 +347,7 @@
         </div>
         <div class="inline-flex rounded-xl p-1 bg-black/70 border border-amber-500/30 self-start">
           <button id="btn-mode-story" onclick="setOracleMode('story', event)" class="mythic-btn mythic-btn-primary px-4 py-2 rounded-lg text-xs sm:text-sm transition">
-            ✨ Illustrated Katha Storyline
+            🎬 Epic Cinema Storyline
           </button>
           <button id="btn-mode-shastra" onclick="setOracleMode('shastra', event)" class="mythic-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-amber-200/80 hover:text-amber-100">
             📜 Shastra &amp; History Synthesis
@@ -384,7 +401,7 @@
       <div id="oracle-loading" class="hidden py-14 text-center">
         <div class="inline-block w-14 h-14 rounded-full border-4 border-amber-500/30 border-t-amber-400 animate-spin mb-4"></div>
         <p class="font-display text-lg text-amber-200">Consulting the 307 Sacred Granthas...</p>
-        <p class="text-xs text-amber-200/55 mt-1">Synthesizing Sanskrit shlokas, scene-matched sacred paintings, and philosophical commentaries</p>
+        <p class="text-xs text-amber-200/55 mt-1">Composing epic cinematic scenes, legendary character visuals, and Sanskrit shlokas</p>
       </div>
 
       <!-- Error Message -->
@@ -646,7 +663,6 @@
 
     function selectInitialEpicTheme() {
       const lastIdx = parseInt(localStorage.getItem("GK_LAST_THEME_IDX") ?? "-1", 10);
-      // Pick a different theme on every page reload
       let nextIdx = (lastIdx + 1) % EPIC_THEMES.length;
       if (isNaN(nextIdx) || nextIdx < 0) {
         nextIdx = Math.floor(Math.random() * EPIC_THEMES.length);
@@ -800,7 +816,6 @@
       });
     }
 
-    // Global click & pointer trail listeners for interactive feel
     document.addEventListener("click", (e) => {
       const btn = e.target.closest("button, a");
       if (btn) {
@@ -842,7 +857,6 @@
       resize();
       window.addEventListener("resize", resize);
 
-      // Ambient drifting mythological motes (lotus petals, fire embers, stars)
       const ambientMotes = Array.from({ length: 42 }, (_, i) => ({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
@@ -853,19 +867,16 @@
         kind: i % 4 === 0 ? "petal" : "ember"
       }));
 
-      // Golden Arrows / Astras streaking occasionally across background sky
       const skyAstras = [];
       let tick = 0;
 
       function renderLoop() {
         tick += 0.012;
 
-        // 1. BACKGROUND CANVAS: Cosmic Mandala + Theme-Specific Mythic Objects
         bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
         const cx = bgCanvas.width / 2;
         const cy = bgCanvas.height * 0.36;
 
-        // Ambient Radial Aura
         const aura = bgCtx.createRadialGradient(cx, cy, 20, cx, cy, Math.max(bgCanvas.width, bgCanvas.height) * 0.65);
         aura.addColorStop(0, hexToRgba(activeTheme.primary, 0.12));
         aura.addColorStop(0.5, hexToRgba(activeTheme.secondary, 0.05));
@@ -873,7 +884,6 @@
         bgCtx.fillStyle = aura;
         bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
 
-        // Rotating Sacred Cosmic Mandala / Sudarshana / Sri Yantra in Background
         bgCtx.save();
         bgCtx.translate(cx, cy);
         bgCtx.strokeStyle = hexToRgba(activeTheme.primary, 0.14);
@@ -898,7 +908,6 @@
           }
         }
 
-        // Theme-specific sacred geometric core
         bgCtx.rotate(tick * 0.18);
         bgCtx.strokeStyle = hexToRgba(activeTheme.secondary, 0.18);
         const triCount = activeTheme.id === "devi_shakta" ? 4 : 2;
@@ -917,7 +926,6 @@
         }
         bgCtx.restore();
 
-        // Spawn periodic Golden Arrow / Divya Astra streak across sky
         if (Math.random() < 0.012 && skyAstras.length < 3) {
           const fromLeft = Math.random() > 0.5;
           skyAstras.push({
@@ -952,7 +960,6 @@
           }
         }
 
-        // Drifting Ambient Petals / Embers
         ambientMotes.forEach((m, idx) => {
           m.x += m.vx + Math.sin(tick + m.phase) * 0.25;
           m.y += m.vy;
@@ -980,7 +987,6 @@
           bgCtx.restore();
         });
 
-        // 2. FOREGROUND CANVAS: Interactive Click Sparkles & Astra Waves
         fgCtx.clearRect(0, 0, fgCanvas.width, fgCanvas.height);
 
         for (let i = fgWaves.length - 1; i >= 0; i--) {
@@ -1003,7 +1009,7 @@
           const p = fgParticles[i];
           p.x += p.vx;
           p.y += p.vy;
-          p.vy += 0.04; // gentle gravity
+          p.vy += 0.04;
           p.alpha -= p.decay;
 
           fgCtx.save();
@@ -1166,13 +1172,13 @@
     ];
 
     /********************************************************************
-     * 6. ORACLE & VISUAL ART STATE
+     * 6. ORACLE & CINEMATIC AI VISUAL STATE
      ********************************************************************/
     let currentMode = "story";
     let currentStoryData = null;
     let currentChapterIndex = 0;
     let chapterImages = [];
-    let galleryImages = [];
+    let galleryImages = [null, null, null];
     let activeGranthaName = "";
     let activeSessionId = 0;
 
@@ -1233,65 +1239,20 @@
     }
 
     /********************************************************************
-     * 7. STRICT CONTEXT-VERIFIED WIKIMEDIA ART & AI SCENE PAINTING
+     * 7. CINEMATIC MOVIE SCENE GENERATOR (100% AI GENERATED VISUALS)
      ********************************************************************/
-    const STOP_WORDS = new Set([
-      "who", "was", "what", "is", "the", "of", "and", "in", "to", "a", "an",
-      "lord", "sri", "shri", "explain", "narrate", "story", "cosmic", "tale",
-      "about", "with", "from", "how", "does", "his", "her", "their", "role",
-      "meaning", "inner", "chapter", "phase", "sacred", "hindu", "mythology"
-    ]);
-
-    const BLOCKED_WORDS = [
-      "discobolus", "greek", "roman", "pieta", "jesus", "christ", "madonna",
-      "apollo", "zeus", "venus", "hercules", "church", "cathedral", "map",
-      "flag", "logo", "diagram", "chart", "coin", "stamp"
-    ];
-
-    function extractSubjectKeywords(text) {
-      return (text || "")
-        .toLowerCase()
-        .replace(/[^a-z\s]/g, " ")
-        .split(/\s+/)
-        .filter(w => w.length >= 4 && !STOP_WORDS.has(w));
+    function buildLegendaryCinemaPrompt(storyTitle, chapter) {
+      const sceneDesc = chapter.cinematicMoviePrompt || chapter.aiArtPrompt || chapter.storyNarrative.slice(0, 260);
+      return (
+        `Epic blockbuster Indian mythological movie still, IMAX 70mm widescreen cinema frame, ` +
+        `legendary larger-than-life characters in ornate royal golden armor, silk dhotis, glowing divine celestial aura, ` +
+        `iconic sacred weapons, dramatic volumetric sunbeams and temple firelight, photorealistic epic film cinematography, ` +
+        `ultra-detailed textures, shallow depth of field, no text or subtitles: ` +
+        `${storyTitle} — Scene: ${chapter.chapterTitle}. ${sceneDesc}`
+      );
     }
 
-    async function fetchStrictSubjectArt(subjectPhrase, requiredKeywords, count = 4) {
-      try {
-        if (!subjectPhrase) return [];
-        const searchStr = `"${subjectPhrase}" (Ramayana OR Mahabharata OR Purana OR Hindu OR Indian)`;
-        const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=filetype:bitmap%20${encodeURIComponent(searchStr)}&gsrnamespace=6&gsrlimit=15&prop=imageinfo&iiprop=url&iiurlwidth=800&format=json&origin=*`;
-        const res = await fetch(url);
-        const json = await res.json();
-        const pages = Object.values(json?.query?.pages || {});
-
-        const valid = [];
-        for (const p of pages) {
-          const info = p?.imageinfo?.[0];
-          const imgUrl = info?.thumburl || info?.url || "";
-          const rawTitle = p?.title || "";
-          const lowerTitle = rawTitle.toLowerCase();
-
-          if (!imgUrl || lowerTitle.endsWith(".svg") || lowerTitle.endsWith(".pdf")) continue;
-          if (BLOCKED_WORDS.some(b => lowerTitle.includes(b))) continue;
-
-          const matchesSubject = requiredKeywords.some(kw => lowerTitle.includes(kw));
-          if (!matchesSubject) continue;
-
-          valid.push({
-            url: imgUrl,
-            caption: rawTitle.replace(/^File:/i, "").replace(/\.[^.]+$/, "").replace(/_/g, " "),
-            source: "Historical Sacred Art"
-          });
-          if (valid.length >= count) break;
-        }
-        return valid;
-      } catch (e) {
-        return [];
-      }
-    }
-
-    async function paintSceneFromText(promptText) {
+    async function generateEpicMovieFrame(promptText) {
       const cfg = getApiConfig();
       if (!cfg.proxyUrl) return null;
       try {
@@ -1309,30 +1270,51 @@
       return null;
     }
 
-    async function autoPaintAllChapters(sessionId, storyData) {
+    async function renderCinematicScenes(sessionId, storyData) {
       const chapters = storyData?.chapters || [];
-      for (let i = 0; i < chapters.length; i++) {
+
+      const renderOneChapter = async (idx, delayMs = 0) => {
+        if (delayMs > 0) {
+          await new Promise(r => setTimeout(r, delayMs));
+        }
         if (sessionId !== activeSessionId) return;
-        const ch = chapters[i];
-        const scenePrompt = `${storyData.title} — ${ch.chapterTitle}. ${ch.aiArtPrompt || ch.storyNarrative.slice(0, 220)}`;
-        const aiUrl = await paintSceneFromText(scenePrompt);
+        const ch = chapters[idx];
+        if (!ch) return;
+
+        const moviePrompt = buildLegendaryCinemaPrompt(storyData.title, ch);
+        const aiUrl = await generateEpicMovieFrame(moviePrompt);
         if (sessionId !== activeSessionId) return;
 
         if (aiUrl) {
-          const artObj = {
+          const sceneObj = {
             url: aiUrl,
-            caption: `${ch.chapterTitle} — ${storyData.title}`,
-            source: "AI Sacred Painting"
+            caption: `Scene ${idx + 1}: ${ch.chapterTitle}`,
+            source: "AI Epic Cinema"
           };
-          chapterImages[i] = artObj;
-          if (i < 3) {
-            galleryImages[i] = artObj;
-            renderTopCollage();
+          chapterImages[idx] = sceneObj;
+          if (idx < 3) {
+            galleryImages[idx] = sceneObj;
+            renderTopCinemaStoryboard();
           }
-          if (currentChapterIndex === i) {
+          if (currentChapterIndex === idx) {
             updateChapterView();
           }
+        } else {
+          // Mark failed state cleanly so user can retry that specific scene
+          chapterImages[idx] = { error: true, caption: ch.chapterTitle };
+          if (idx < 3) renderTopCinemaStoryboard();
+          if (currentChapterIndex === idx) updateChapterView();
         }
+      };
+
+      // Generate the first 3 movie storyboard scenes concurrently, then Scene 4
+      await Promise.all([
+        renderOneChapter(0, 0),
+        renderOneChapter(1, 350),
+        renderOneChapter(2, 700)
+      ]);
+      if (chapters.length > 3) {
+        await renderOneChapter(3, 250);
       }
     }
 
@@ -1392,7 +1374,7 @@
     }
 
     /********************************************************************
-     * 9. ORACLE INVOCATION & RENDERING
+     * 9. ORACLE INVOCATION & CINEMATIC STORYBOARD RENDERING
      ********************************************************************/
     async function invokeOracle() {
       const query = document.getElementById("oracle-input").value.trim();
@@ -1409,18 +1391,17 @@
       errorEl.classList.add("hidden");
       outputEl.innerHTML = "";
 
-      const systemPrompt = `You are Sanātana Grantha Kosh (created by Pratham Salunke), the supreme scholarly and storytelling AI oracle mastering all 22 categories and 307 canonical scriptures of Hindu Mythology and Philosophy.
+      const systemPrompt = `You are Sanātana Grantha Kosh (created by Pratham Salunke), the supreme scholarly and cinematic storytelling AI oracle mastering all 22 categories and 307 canonical scriptures of Hindu Mythology and Philosophy.
 Always respond in valid JSON adhering strictly to this schema:
 {
   "title": "Majestic title of the tale or concept",
-  "mainDeityOrSubject": "Exact 1 or 2 word proper noun of the central figure or event (e.g., 'Hanuman', 'Samudra Manthan', 'Krishna', 'Shiva Nataraja', 'Nachiketa')",
   "subtitle": "Primary scriptural lineage (e.g., Valmiki Ramayana & Shiva Purana)",
   "primarySources": ["List 3 to 5 specific texts from the 307 scriptures"],
   "chapters": [
     {
       "chapterNumber": 1,
-      "chapterTitle": "Title of chapter/phase",
-      "aiArtPrompt": "Detailed visual painting description strictly depicting THIS exact chapter's characters, attire, setting, and action in classical Hindu epic art style",
+      "chapterTitle": "Title of chapter/scene",
+      "cinematicMoviePrompt": "Vivid cinematic movie shot description portraying the legendary characters in heroic divine attire, glowing aura, dramatic poses, sacred weapons, and epic mythic setting strictly matching this chapter's narrative",
       "storyNarrative": "Rich, vivid narrative or conceptual explanation (120-160 words)",
       "sanskritShloka": "Authentic or representative Sanskrit verse in Devanagari",
       "transliteration": "IAST transliteration of the verse",
@@ -1442,20 +1423,15 @@ Provide exactly 4 chapters.`;
         currentStoryData = result;
         currentChapterIndex = 0;
 
-        const subject = result.mainDeityOrSubject || result.title || query;
-        const keywords = extractSubjectKeywords(`${subject} ${query}`);
-        const verifiedPool = await fetchStrictSubjectArt(subject, keywords, 4);
-
-        chapterImages = (result.chapters || []).map((_, idx) => verifiedPool[idx] || null);
-        galleryImages = [
-          verifiedPool[0] || null,
-          verifiedPool[1] || null,
-          verifiedPool[2] || null
-        ];
+        // Initialize empty AI scene slots (zero external/Wikimedia images)
+        chapterImages = (result.chapters || []).map(() => null);
+        galleryImages = [null, null, null];
 
         renderOracleResult(result);
         spawnAstraWave(window.innerWidth / 2, window.innerHeight * 0.35);
-        autoPaintAllChapters(thisSession, result);
+
+        // Generate all AI cinematic movie scenes directly from the textual chapters
+        renderCinematicScenes(thisSession, result);
       } catch (err) {
         errorEl.textContent = err.message;
         errorEl.classList.remove("hidden");
@@ -1464,35 +1440,49 @@ Provide exactly 4 chapters.`;
       }
     }
 
-    function renderTopCollage() {
+    function renderTopCinemaStoryboard() {
       const container = document.getElementById("top-art-collage");
-      if (!container) return;
+      if (!container || !currentStoryData?.chapters) return;
 
-      const available = galleryImages.filter(Boolean);
-      if (available.length === 0) {
-        container.innerHTML = "";
-        return;
-      }
+      const ch0 = currentStoryData.chapters[0];
+      const ch1 = currentStoryData.chapters[1] || ch0;
+      const ch2 = currentStoryData.chapters[2] || ch1;
 
-      const g0 = galleryImages[0] || available[0];
-      const g1 = galleryImages[1] || available[1 % available.length];
-      const g2 = galleryImages[2] || available[2 % available.length];
+      const g0 = galleryImages[0];
+      const g1 = galleryImages[1];
+      const g2 = galleryImages[2];
+
+      const renderSlot = (imgObj, chObj, sceneNum, heightClass) => {
+        if (imgObj && imgObj.url) {
+          return `
+            <div onclick="goToChapter(${sceneNum - 1})" class="relative rounded-xl overflow-hidden ${heightClass} bg-[#160E0A] cursor-pointer group">
+              <img src="${imgObj.url}" alt="${imgObj.caption}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+              <div class="absolute top-2 left-2 px-2 py-0.5 rounded bg-black/75 border border-amber-400/40 text-[10px] font-bold uppercase tracking-wider text-amber-300">
+                Scene ${sceneNum}
+              </div>
+              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent p-2.5">
+                <p class="text-[11px] text-amber-100 font-medium line-clamp-1">${chObj?.chapterTitle || ""}</p>
+              </div>
+            </div>
+          `;
+        }
+        return `
+          <div class="relative rounded-xl overflow-hidden ${heightClass} cinema-skeleton border border-amber-500/20 flex flex-col items-center justify-center p-3 text-center">
+            <div class="w-6 h-6 rounded-full border-2 border-amber-400/30 border-t-amber-400 animate-spin mb-1.5"></div>
+            <span class="text-[10px] font-display font-bold uppercase tracking-wider text-amber-300">🎬 Rendering Scene ${sceneNum}</span>
+            <p class="text-[10px] text-amber-200/60 line-clamp-1 mt-0.5">${chObj?.chapterTitle || ""}</p>
+          </div>
+        `;
+      };
 
       container.innerHTML = `
-        <div class="grid grid-cols-12 gap-2.5 mb-7 rounded-2xl overflow-hidden border border-amber-500/35 bg-black/80 p-2 shadow-xl">
-          <div class="col-span-7 relative rounded-xl overflow-hidden h-56 sm:h-72 bg-[#160E0A]">
-            <img src="${g0.url}" alt="${g0.caption}" class="w-full h-full object-cover hover:scale-105 transition duration-700" />
-            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-2.5">
-              <p class="text-[11px] text-amber-200/95 line-clamp-1">${g0.caption}</p>
-            </div>
+        <div class="grid grid-cols-12 gap-2.5 mb-7 rounded-2xl overflow-hidden border border-amber-500/35 bg-black/85 p-2.5 shadow-2xl">
+          <div class="col-span-7">
+            ${renderSlot(g0, ch0, 1, "h-56 sm:h-72")}
           </div>
-          <div class="col-span-5 grid grid-rows-2 gap-2.5 h-56 sm:h-72">
-            <div class="relative rounded-xl overflow-hidden bg-[#160E0A]">
-              <img src="${g1.url}" alt="${g1.caption}" class="w-full h-full object-cover hover:scale-105 transition duration-700" />
-            </div>
-            <div class="relative rounded-xl overflow-hidden bg-[#160E0A]">
-              <img src="${g2.url}" alt="${g2.caption}" class="w-full h-full object-cover hover:scale-105 transition duration-700" />
-            </div>
+          <div class="col-span-5 grid grid-rows-2 gap-2.5">
+            ${renderSlot(g1, ch1, 2, "h-[6.7rem] sm:h-[8.65rem]")}
+            ${renderSlot(g2, ch2, 3, "h-[6.7rem] sm:h-[8.65rem]")}
           </div>
         </div>
       `;
@@ -1516,15 +1506,15 @@ Provide exactly 4 chapters.`;
 
           <div id="top-art-collage"></div>
 
-          <!-- Chapter Visual Artwork + Story Narrative Grid -->
+          <!-- Chapter Visual Movie Frame + Story Narrative Grid -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            <!-- Left: Dynamic Chapter Illustration Panel -->
+            <!-- Left: AI Epic Movie Frame Panel -->
             <div class="lg:col-span-5 rounded-2xl bg-black border border-amber-500/35 overflow-hidden flex flex-col justify-between relative min-h-[360px]">
               <div id="chapter-visual-frame" class="w-full h-full min-h-[360px] relative overflow-hidden bg-[#140B08]"></div>
 
               <div class="p-3.5 bg-gradient-to-t from-black via-black/90 to-transparent absolute bottom-0 inset-x-0 flex flex-wrap items-center justify-between gap-2">
                 <button id="btn-paint-ai" onclick="regenerateCurrentChapterArt()" class="mythic-btn mythic-btn-primary px-3 py-1.5 rounded-lg text-xs transition">
-                  🎨 Re-Paint Scene
+                  🎬 Re-Shoot Movie Scene
                 </button>
                 <button onclick="narrateCurrentChapter()" class="mythic-btn px-3 py-1.5 rounded-lg bg-black/80 hover:bg-amber-500/25 border border-amber-400/50 text-amber-200 text-xs font-semibold transition">
                   🔊 Listen Narration
@@ -1587,7 +1577,7 @@ Provide exactly 4 chapters.`;
         </div>
       `;
 
-      renderTopCollage();
+      renderTopCinemaStoryboard();
       updateChapterView();
     }
 
@@ -1608,22 +1598,30 @@ Provide exactly 4 chapters.`;
       const frame = document.getElementById("chapter-visual-frame");
       if (imgObj && imgObj.url) {
         frame.innerHTML = `
-          <img src="${imgObj.url}" alt="${ch.chapterTitle}" class="w-full h-full min-h-[360px] object-cover animate-ken-burns" />
+          <img src="${imgObj.url}" alt="${ch.chapterTitle}" class="w-full h-full min-h-[360px] object-cover animate-cinema-pan" />
           <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
-            <span class="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-amber-400/40 text-[11px] font-semibold text-amber-200">
-              Adhyāya ${currentChapterIndex + 1} &bull; ${imgObj.source || "Sacred Art"}
+            <span class="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-amber-400/50 text-[11px] font-semibold text-amber-200">
+              🎬 Scene ${currentChapterIndex + 1} &bull; Legendary Cinema Frame
             </span>
           </div>
           <div class="absolute bottom-14 inset-x-0 bg-gradient-to-t from-black/95 to-transparent px-3.5 py-2">
-            <p class="text-[11px] text-amber-200/90 line-clamp-1">${imgObj.caption || ch.chapterTitle}</p>
+            <p class="text-[11px] text-amber-200/95 line-clamp-1">${ch.chapterTitle}</p>
+          </div>
+        `;
+      } else if (imgObj && imgObj.error) {
+        frame.innerHTML = `
+          <div class="w-full h-full min-h-[360px] flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-amber-950/60 via-black to-orange-950/40">
+            <span class="text-4xl mb-2">🎬</span>
+            <p class="font-display text-sm font-bold text-amber-200">${ch.chapterTitle}</p>
+            <p class="text-xs text-amber-200/65 mt-1 max-w-xs">Image studio was momentarily busy. Tap "Re-Shoot Movie Scene" below to render this epic frame.</p>
           </div>
         `;
       } else {
         frame.innerHTML = `
-          <div class="w-full h-full min-h-[360px] flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-amber-950/60 via-black to-orange-950/40">
-            <div class="w-10 h-10 rounded-full border-2 border-amber-500/30 border-t-amber-400 animate-spin mb-3"></div>
-            <p class="font-display text-sm font-bold text-amber-200">Painting Scene for Adhyāya ${currentChapterIndex + 1}...</p>
-            <p class="text-xs text-amber-200/65 mt-1.5 max-w-xs">${ch.aiArtPrompt || ch.chapterTitle}</p>
+          <div class="w-full h-full min-h-[360px] cinema-skeleton flex flex-col items-center justify-center p-6 text-center">
+            <div class="w-11 h-11 rounded-full border-2 border-amber-500/30 border-t-amber-400 animate-spin mb-3"></div>
+            <p class="font-display text-sm font-bold text-amber-200">🎬 Filming Scene ${currentChapterIndex + 1}...</p>
+            <p class="text-xs text-amber-200/65 mt-1.5 max-w-xs">${ch.cinematicMoviePrompt || ch.chapterTitle}</p>
           </div>
         `;
       }
@@ -1639,23 +1637,29 @@ Provide exactly 4 chapters.`;
       const ch = currentStoryData.chapters[currentChapterIndex];
       const btn = document.getElementById("btn-paint-ai");
       const originalText = btn.textContent;
-      btn.textContent = "⏳ Painting...";
+      btn.textContent = "⏳ Filming...";
       btn.disabled = true;
 
+      chapterImages[currentChapterIndex] = null;
+      updateChapterView();
+
       try {
-        const scenePrompt = `${currentStoryData.title} — ${ch.chapterTitle}. ${ch.aiArtPrompt || ch.storyNarrative.slice(0, 220)} (variation ${Date.now() % 1000})`;
-        const aiUrl = await paintSceneFromText(scenePrompt);
+        const moviePrompt = `${buildLegendaryCinemaPrompt(currentStoryData.title, ch)} (camera take ${Date.now() % 1000})`;
+        const aiUrl = await generateEpicMovieFrame(moviePrompt);
         if (aiUrl) {
-          const artObj = {
+          const sceneObj = {
             url: aiUrl,
-            caption: `${ch.chapterTitle} — ${currentStoryData.title}`,
-            source: "AI Sacred Painting"
+            caption: `Scene ${currentChapterIndex + 1}: ${ch.chapterTitle}`,
+            source: "AI Epic Cinema"
           };
-          chapterImages[currentChapterIndex] = artObj;
+          chapterImages[currentChapterIndex] = sceneObj;
           if (currentChapterIndex < 3) {
-            galleryImages[currentChapterIndex] = artObj;
-            renderTopCollage();
+            galleryImages[currentChapterIndex] = sceneObj;
+            renderTopCinemaStoryboard();
           }
+          updateChapterView();
+        } else {
+          chapterImages[currentChapterIndex] = { error: true };
           updateChapterView();
         }
       } finally {
@@ -1765,7 +1769,7 @@ Provide exactly 4 chapters.`;
           <strong>${title}</strong> is a revered canonical scripture within <em>${category}</em> in the 307-Grantha Sanātana Kosha.
         </p>
         <p class="text-amber-200/75">
-          Click <strong>"Explore in AI Oracle"</strong> below or customize your question to generate a complete 4-chapter illustrated narrative, authentic Sanskrit shlokas, and philosophical commentary from <strong>${title}</strong>.
+          Click <strong>"Explore in AI Oracle"</strong> below or customize your question to generate a complete 4-chapter cinematic narrative, legendary character visuals, Sanskrit shlokas, and philosophical commentary from <strong>${title}</strong>.
         </p>
       `;
       document.getElementById("grantha-modal").classList.remove("hidden");
