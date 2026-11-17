@@ -480,11 +480,13 @@ const DEFAULT_GEMINI_API_KEY = "";
     let animationFrameId = null;
     let activeGranthaName = "";
 
-    function getApiConfig() {
+        function getApiConfig() {
+      const savedModel = localStorage.getItem("GK_MODEL");
+      const validModel = savedModel && !savedModel.startsWith("gemini-2.") ? savedModel : "gemini-3.8-flash";
       return {
         proxyUrl: localStorage.getItem("GK_PROXY_URL") || DEFAULT_BACKEND_PROXY_URL,
         apiKey: localStorage.getItem("GK_API_KEY") || DEFAULT_GEMINI_API_KEY,
-        model: localStorage.getItem("GK_MODEL") || "gemini-2.5-flash-lite"
+        model: validModel
       };
     }
 
