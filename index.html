@@ -555,16 +555,22 @@ const DEFAULT_GEMINI_API_KEY = "";
         }
       };
 
-      // 1. If a Backend Proxy URL is configured, call the backend proxy
+            // 1. If a Backend Proxy URL is configured, call the backend proxy
       if (cfg.proxyUrl) {
         const res = await fetch(cfg.proxyUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ model: cfg.model, payload })
         });
-        if (!res.ok) throw new Error(`Backend Proxy Error: ${res.status}`);
         const data = await res.json();
-        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+        if (!res.ok) {
+          const detail = data?.error?.message || JSON.stringify(data);
+          throw new Error(`Backend Proxy Error (${res.status}): ${detail}`);
+        }
+        const rawText = (data?.candidates?.[0]?.content?.parts?.[0]?.text || "{}")
+          .replace(/^```json\s*/i, "")
+          .replace(/```\s*$/i, "")
+          .trim();
         return JSON.parse(rawText);
       }
 
