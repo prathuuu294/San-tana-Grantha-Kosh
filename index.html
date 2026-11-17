@@ -173,30 +173,38 @@
       animation: spinChakraFast 0.9s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    /* Cinematic Camera Pan & Zoom */
-    @keyframes cinemaCameraPan {
-      0% { transform: scale(1) translate(0, 0); }
-      50% { transform: scale(1.08) translate(-1.2%, -0.8%); }
-      100% { transform: scale(1) translate(0, 0); }
+    /* Epic Movie Diorama Animations */
+    @keyframes cinemaCameraDrift {
+      0% { transform: scale(1.02) translate(0px, 0px); }
+      50% { transform: scale(1.08) translate(-6px, -4px); }
+      100% { transform: scale(1.02) translate(0px, 0px); }
     }
-    .animate-cinema-pan {
-      animation: cinemaCameraPan 20s ease-in-out infinite;
+    @keyframes divineAuraPulse {
+      0%, 100% { opacity: 0.65; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.07); }
     }
-
-    /* Cinematic Shimmer Placeholder */
-    @keyframes cinemaShimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
+    @keyframes godRayRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
-    .cinema-skeleton {
-      background: linear-gradient(
-        110deg,
-        rgba(20, 12, 8, 0.95) 25%,
-        rgba(245, 158, 11, 0.14) 50%,
-        rgba(20, 12, 8, 0.95) 75%
-      );
-      background-size: 200% 100%;
-      animation: cinemaShimmer 2.2s linear infinite;
+    @keyframes floatEmberSlow {
+      0%, 100% { transform: translateY(0px); opacity: 0.45; }
+      50% { transform: translateY(-10px); opacity: 0.95; }
+    }
+    .cinema-drift {
+      animation: cinemaCameraDrift 14s ease-in-out infinite;
+      transform-origin: center center;
+    }
+    .aura-pulse {
+      animation: divineAuraPulse 3.6s ease-in-out infinite;
+      transform-origin: center center;
+    }
+    .god-rays-spin {
+      animation: godRayRotate 45s linear infinite;
+      transform-origin: 320px 185px;
+    }
+    .ember-float {
+      animation: floatEmberSlow 3.2s ease-in-out infinite;
     }
 
     /* Mantra Toast Animation */
@@ -327,7 +335,7 @@
       </div>
 
       <p class="mt-2 max-w-3xl mx-auto text-xs sm:text-base text-amber-100/80 leading-relaxed">
-        Ask any question, philosophical inquiry, or mythological tale across the Four Vedas, 108 Upanishads, 18 Mahāpurāṇas, 18 Upapurāṇas, Ramayana, Mahabharata, Āgamas, Tantras, Darśanas, and Regional Bhakti Literature—brought to life with AI-generated epic movie scenes, legendary character visuals, Sanskrit shlokas, and scriptural synthesis.
+        Ask any question, philosophical inquiry, or mythological tale across the Four Vedas, 108 Upanishads, 18 Mahāpurāṇas, 18 Upapurāṇas, Ramayana, Mahabharata, Āgamas, Tantras, Darśanas, and Regional Bhakti Literature—illuminated instantaneously with animated epic movie scenes, legendary character visuals, Sanskrit shlokas, and scriptural synthesis.
       </p>
     </div>
   </section>
@@ -401,7 +409,7 @@
       <div id="oracle-loading" class="hidden py-14 text-center">
         <div class="inline-block w-14 h-14 rounded-full border-4 border-amber-500/30 border-t-amber-400 animate-spin mb-4"></div>
         <p class="font-display text-lg text-amber-200">Consulting the 307 Sacred Granthas...</p>
-        <p class="text-xs text-amber-200/55 mt-1">Composing epic cinematic scenes, legendary character visuals, and Sanskrit shlokas</p>
+        <p class="text-xs text-amber-200/55 mt-1">Synthesizing Sanskrit shlokas, animated epic scenes, and philosophical commentaries</p>
       </div>
 
       <!-- Error Message -->
@@ -1039,7 +1047,332 @@
     }
 
     /********************************************************************
-     * 5. ALL 22 CATEGORIES & 307 CANONICAL SCRIPTURES
+     * 5. INSTANT EPIC CINEMA SCENE & LEGENDARY CHARACTER RENDERER (0ms!)
+     * Generates widescreen animated movie scenes tailored to each chapter
+     * directly from Gemini's textual scene direction—zero slow image APIs!
+     ********************************************************************/
+    const SKY_PALETTES = {
+      golden_dawn: { top: "#1C0D06", mid: "#7C2D12", horizon: "#F59E0B", sun: "#FEF08A", accent: "#FBBF24" },
+      cosmic_nebula: { top: "#060514", mid: "#1E1B4B", horizon: "#4F46E5", sun: "#38BDF8", accent: "#C084FC" },
+      inferno_crimson: { top: "#140406", mid: "#7F1D1D", horizon: "#EA580C", sun: "#FDE047", accent: "#FB7185" },
+      celestial_azure: { top: "#041019", mid: "#0F3D5E", horizon: "#0D9488", sun: "#99F6E4", accent: "#38BDF8" },
+      sacred_amber: { top: "#120904", mid: "#5C240C", horizon: "#D97706", sun: "#FDE68A", accent: "#FB923C" }
+    };
+
+    function inferSceneMeta(chapter, idx) {
+      const sd = chapter.sceneDirector || {};
+      const text = `${chapter.chapterTitle || ""} ${chapter.storyNarrative || ""}`.toLowerCase();
+
+      let hero = sd.legendaryFigure || "";
+      if (!hero) {
+        if (text.includes("hanuman") || text.includes("anjana") || text.includes("sanjeevani") || text.includes("lanka")) hero = "hanuman_mighty";
+        else if (text.includes("vishvarupa") || text.includes("universal form") || text.includes("cosmic form")) hero = "vishvarupa_avatar";
+        else if (text.includes("krishna") || text.includes("sudarshana") || text.includes("vasudeva")) hero = "krishna_divine";
+        else if (text.includes("shiva") || text.includes("rudra") || text.includes("nataraja") || text.includes("kailasa")) hero = "shiva_nataraja";
+        else if (text.includes("devi") || text.includes("durga") || text.includes("shakti") || text.includes("lalita")) hero = "devi_shakti";
+        else if (text.includes("vishnu") || text.includes("narayana") || text.includes("samudra") || text.includes("kurma")) hero = "vishnu_narayana";
+        else if (text.includes("rishi") || text.includes("sage") || text.includes("upanishad") || text.includes("nachiketa") || text.includes("yama")) hero = "rishi_sage";
+        else hero = "archer_warrior";
+      }
+
+      let env = sd.environment || "";
+      if (!env) {
+        if (text.includes("kurukshetra") || text.includes("battle") || text.includes("army") || text.includes("chariot")) env = "kurukshetra_chariot";
+        else if (text.includes("ocean") || text.includes("samudra") || text.includes("manthan") || text.includes("sea")) env = "ocean_samudra";
+        else if (text.includes("kailasa") || text.includes("himalaya") || text.includes("mountain") || text.includes("peak")) env = "kailasa_peaks";
+        else if (text.includes("forest") || text.includes("ashram") || text.includes("hermitage") || text.includes("fire")) env = "forest_hermitage";
+        else if (text.includes("cosmic") || text.includes("universe") || text.includes("vishvarupa") || text.includes("galax")) env = "cosmic_vishvarupa";
+        else env = "ayodhya_court";
+      }
+
+      const lights = ["golden_dawn", "cosmic_nebula", "inferno_crimson", "celestial_azure"];
+      const lighting = SKY_PALETTES[sd.lighting] ? sd.lighting : lights[idx % lights.length];
+      const tagline = sd.cinematicSubtitle || chapter.chapterTitle || `Scene ${idx + 1}`;
+
+      return { hero, env, lighting, tagline };
+    }
+
+    function buildEnvironmentLayer(env, pal) {
+      if (env === "kurukshetra_chariot") {
+        return `
+          <!-- Distant War Banners & Chariots -->
+          <g opacity="0.72">
+            <path d="M0 295 Q160 275 320 292 T640 288 L640 360 L0 360 Z" fill="#090504"/>
+            <line x1="85" y1="220" x2="85" y2="295" stroke="${pal.accent}" stroke-width="2.5"/>
+            <polygon points="85,220 128,232 85,244" fill="${pal.horizon}"/>
+            <line x1="545" y1="215" x2="545" y2="292" stroke="${pal.accent}" stroke-width="2.5"/>
+            <polygon points="545,215 502,227 545,239" fill="${pal.horizon}"/>
+            <!-- Chariot Wheels -->
+            <circle cx="145" cy="308" r="24" fill="none" stroke="${pal.accent}" stroke-width="3"/>
+            <circle cx="145" cy="308" r="6" fill="${pal.sun}"/>
+            <circle cx="495" cy="308" r="24" fill="none" stroke="${pal.accent}" stroke-width="3"/>
+            <circle cx="495" cy="308" r="6" fill="${pal.sun}"/>
+          </g>
+        `;
+      }
+      if (env === "ocean_samudra") {
+        return `
+          <!-- Kṣīra Sāgara Churning Waves -->
+          <g>
+            <path d="M0 265 Q80 245 160 265 T320 265 T480 265 T640 265 L640 360 L0 360 Z" fill="${pal.mid}" opacity="0.75"/>
+            <path d="M0 288 Q90 268 180 288 T360 288 T540 288 T640 288 L640 360 L0 360 Z" fill="#061218" opacity="0.9"/>
+            <path d="M30 276 Q110 262 190 276 M240 282 Q330 266 420 282 M450 275 Q530 260 610 275" fill="none" stroke="${pal.sun}" stroke-width="2" opacity="0.65"/>
+          </g>
+        `;
+      }
+      if (env === "kailasa_peaks") {
+        return `
+          <!-- Himalayan Kailasa Peaks -->
+          <g>
+            <polygon points="0,330 130,175 255,330" fill="#0B1120" opacity="0.88"/>
+            <polygon points="130,175 102,212 130,204 156,214" fill="${pal.sun}" opacity="0.55"/>
+            <polygon points="385,330 515,165 640,330" fill="#0B1120" opacity="0.88"/>
+            <polygon points="515,165 486,206 515,196 544,208" fill="${pal.sun}" opacity="0.55"/>
+            <path d="M0 305 Q320 280 640 305 L640 360 L0 360 Z" fill="#050811"/>
+          </g>
+        `;
+      }
+      if (env === "cosmic_vishvarupa") {
+        return `
+          <!-- Cosmic Galaxies & Celestial Rings -->
+          <g opacity="0.7">
+            <circle cx="320" cy="180" r="155" fill="none" stroke="${pal.sun}" stroke-width="1.4" stroke-dasharray="6 6"/>
+            <circle cx="320" cy="180" r="122" fill="none" stroke="${pal.accent}" stroke-width="2"/>
+            <circle cx="110" cy="95" r="16" fill="${pal.accent}" opacity="0.45"/>
+            <circle cx="535" cy="105" r="22" fill="${pal.sun}" opacity="0.35"/>
+            <circle cx="515" cy="245" r="12" fill="${pal.accent}" opacity="0.5"/>
+          </g>
+        `;
+      }
+      if (env === "forest_hermitage") {
+        return `
+          <!-- Sacred Ashram & Blazing Yajna Kund -->
+          <g>
+            <path d="M0 300 Q320 285 640 300 L640 360 L0 360 Z" fill="#090604"/>
+            <polygon points="275,325 365,325 352,302 288,302" fill="#451A03" stroke="${pal.accent}" stroke-width="2"/>
+            <path d="M305 302 Q320 258 335 302 Q325 278 320 264 Q312 280 305 302 Z" fill="${pal.sun}"/>
+          </g>
+        `;
+      }
+      // Default: Royal Ayodhya / Temple Sanctum Arches
+      return `
+        <g opacity="0.82">
+          <rect x="52" y="130" width="22" height="190" fill="#0B0705" stroke="${pal.accent}" stroke-width="1.4"/>
+          <rect x="566" y="130" width="22" height="190" fill="#0B0705" stroke="${pal.accent}" stroke-width="1.4"/>
+          <path d="M52 130 Q320 55 588 130" fill="none" stroke="${pal.accent}" stroke-width="2.5"/>
+          <path d="M0 308 L640 308 L640 360 L0 360 Z" fill="#080504"/>
+        </g>
+      `;
+    }
+
+    function buildLegendaryHeroLayer(hero, pal) {
+      const aura = `
+        <circle cx="320" cy="175" r="95" fill="url(#heroHalo)" class="aura-pulse"/>
+        <circle cx="320" cy="175" r="68" fill="none" stroke="${pal.sun}" stroke-width="1.8" stroke-dasharray="5 4" class="aura-pulse"/>
+      `;
+
+      if (hero === "hanuman_mighty") {
+        return `
+          ${aura}
+          <!-- Legendary Hanuman Leaping with Gada & Glowing Sanjeevani Peak -->
+          <g transform="translate(320, 185)">
+            <!-- Crown & Heroic Silhouette -->
+            <polygon points="-14,-78 0,-98 14,-78" fill="${pal.sun}"/>
+            <circle cx="0" cy="-64" r="16" fill="#120905" stroke="${pal.sun}" stroke-width="2.4"/>
+            <!-- Torso & Heroic Cape -->
+            <path d="M-24,-46 L24,-46 L18,16 L-18,16 Z" fill="#120905" stroke="${pal.accent}" stroke-width="2.4"/>
+            <path d="M-22,-42 C-75,-20 -95,25 -115,52 C-70,42 -40,26 -18,12 Z" fill="${pal.horizon}" opacity="0.72"/>
+            <!-- Left Arm Lifting Glowing Sanjeevani Mountain -->
+            <path d="M-24,-40 L-62,-74 L-56,-84" fill="none" stroke="${pal.sun}" stroke-width="7" stroke-linecap="round"/>
+            <polygon points="-98,-84 -60,-134 -22,-84" fill="${pal.sun}" stroke="#FFFFFF" stroke-width="1.8"/>
+            <circle cx="-60" cy="-104" r="14" fill="#34D399" opacity="0.85"/>
+            <!-- Right Arm Wielding Golden Gada Mace -->
+            <path d="M24,-40 L62,-18" fill="none" stroke="${pal.sun}" stroke-width="7" stroke-linecap="round"/>
+            <line x1="56" y1="-26" x2="88" y2="-68" stroke="${pal.sun}" stroke-width="4"/>
+            <circle cx="94" cy="-76" r="15" fill="${pal.accent}" stroke="${pal.sun}" stroke-width="2.5"/>
+            <!-- Heroic Leaping Legs & Arched Tail -->
+            <path d="M-12,16 L-44,64 L-22,78" fill="none" stroke="${pal.sun}" stroke-width="7" stroke-linecap="round"/>
+            <path d="M12,16 L48,54 L76,42" fill="none" stroke="${pal.sun}" stroke-width="7" stroke-linecap="round"/>
+            <path d="M-16,12 C-75,8 -105,-48 -72,-82" fill="none" stroke="${pal.sun}" stroke-width="3.5" stroke-linecap="round"/>
+          </g>
+        `;
+      }
+
+      if (hero === "krishna_divine") {
+        return `
+          ${aura}
+          <!-- Lord Krishna with Peacock Feather Crown & Spinning Sudarshana Chakra -->
+          <g transform="translate(320, 188)">
+            <ellipse cx="6" cy="-98" rx="8" ry="14" fill="#2DD4BF" stroke="${pal.sun}" stroke-width="1.8"/>
+            <polygon points="-13,-76 0,-92 13,-76" fill="${pal.sun}"/>
+            <circle cx="0" cy="-62" r="15" fill="#0B1120" stroke="${pal.sun}" stroke-width="2.4"/>
+            <path d="M-22,-44 L22,-44 L28,48 L-28,48 Z" fill="#0B1120" stroke="${pal.accent}" stroke-width="2.4"/>
+            <!-- Raised Right Hand with Blazing Sudarshana Chakra -->
+            <path d="M22,-40 L58,-66" fill="none" stroke="${pal.sun}" stroke-width="6.5" stroke-linecap="round"/>
+            <g transform="translate(64, -84)" class="spin-slow">
+              <circle cx="0" cy="0" r="22" fill="none" stroke="${pal.sun}" stroke-width="3"/>
+              <circle cx="0" cy="0" r="8" fill="${pal.horizon}" stroke="#FFFFFF" stroke-width="1.5"/>
+              <path d="M0,-28 L4,-18 L-4,-18 Z M0,28 L4,18 L-4,18 Z M-28,0 L-18,-4 L-18,4 Z M28,0 L18,-4 L18,4 Z" fill="${pal.sun}"/>
+            </g>
+            <!-- Left Hand Holding Panchajanya Shankha -->
+            <path d="M-22,-38 L-54,-22" fill="none" stroke="${pal.sun}" stroke-width="6.5" stroke-linecap="round"/>
+            <ellipse cx="-64" cy="-24" rx="12" ry="8" fill="#F8FAFC" stroke="${pal.sun}" stroke-width="2"/>
+          </g>
+        `;
+      }
+
+      if (hero === "shiva_nataraja") {
+        return `
+          ${aura}
+          <!-- Lord Shiva Nataraja Inside Cosmic Ring of Fire -->
+          <g transform="translate(320, 184)">
+            <circle cx="0" cy="0" r="86" fill="none" stroke="${pal.horizon}" stroke-width="4" stroke-dasharray="10 6"/>
+            <path d="M-8,-86 Q0,-96 8,-86" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+            <circle cx="0" cy="-64" r="15" fill="#090D16" stroke="${pal.sun}" stroke-width="2.4"/>
+            <path d="M-20,-46 L20,-46 L14,16 L-14,16 Z" fill="#090D16" stroke="${pal.accent}" stroke-width="2.4"/>
+            <!-- Tall Glowing Trishula Trident -->
+            <line x1="-68" y1="-92" x2="-68" y2="78" stroke="${pal.sun}" stroke-width="3.5"/>
+            <path d="M-80,-88 C-80,-72 -56,-72 -56,-88" fill="none" stroke="${pal.sun}" stroke-width="3"/>
+            <polygon points="-68,-104 -73,-88 -63,-88" fill="#FFFFFF"/>
+            <!-- Cosmic Tandava Arms & Raised Leg -->
+            <path d="M-20,-42 L-64,-36 M20,-42 L64,-54 M-14,16 L-34,68 M10,16 L46,38 L12,56" fill="none" stroke="${pal.sun}" stroke-width="6" stroke-linecap="round"/>
+          </g>
+        `;
+      }
+
+      if (hero === "devi_shakti") {
+        return `
+          ${aura}
+          <!-- Goddess Adi Parashakti / Durga with Multi-Armed Radiant Halo -->
+          <g transform="translate(320, 188)">
+            <polygon points="-15,-78 0,-102 15,-78" fill="${pal.sun}"/>
+            <circle cx="0" cy="-62" r="15" fill="#1A060D" stroke="${pal.sun}" stroke-width="2.4"/>
+            <path d="M-22,-44 L22,-44 L34,54 L-34,54 Z" fill="#1A060D" stroke="${pal.accent}" stroke-width="2.5"/>
+            <!-- Radiant Multi-Arms with Celestial Weapons -->
+            <path d="M-20,-38 L-72,-66 M-22,-26 L-82,-24 M-22,-14 L-68,18 M20,-38 L72,-66 M22,-26 L82,-24 M22,-14 L68,18" fill="none" stroke="${pal.sun}" stroke-width="4.5" stroke-linecap="round"/>
+            <circle cx="-76" cy="-70" r="8" fill="${pal.sun}"/>
+            <circle cx="76" cy="-70" r="8" fill="${pal.accent}"/>
+            <!-- Lotus Pedestal -->
+            <ellipse cx="0" cy="60" rx="48" ry="11" fill="${pal.accent}" opacity="0.85"/>
+          </g>
+        `;
+      }
+
+      if (hero === "vishvarupa_avatar" || hero === "vishnu_narayana") {
+        return `
+          ${aura}
+          <!-- Cosmic Vishvarupa / Narayana Infinite Multi-Halo Form -->
+          <g transform="translate(320, 185)">
+            <circle cx="0" cy="-58" r="42" fill="none" stroke="${pal.sun}" stroke-width="2" stroke-dasharray="4 4"/>
+            <circle cx="-26" cy="-62" r="11" fill="#0B091A" stroke="${pal.sun}" stroke-width="2"/>
+            <circle cx="26" cy="-62" r="11" fill="#0B091A" stroke="${pal.sun}" stroke-width="2"/>
+            <polygon points="-15,-82 0,-106 15,-82" fill="${pal.sun}"/>
+            <circle cx="0" cy="-64" r="16" fill="#0B091A" stroke="#FFFFFF" stroke-width="2.5"/>
+            <path d="M-26,-44 L26,-44 L32,56 L-32,56 Z" fill="#0B091A" stroke="${pal.sun}" stroke-width="2.6"/>
+            <path d="M-24,-36 L-76,-62 M-24,-20 L-82,-12 M24,-36 L76,-62 M24,-20 L82,-12" fill="none" stroke="${pal.sun}" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="80" cy="-66" r="13" fill="none" stroke="${pal.sun}" stroke-width="3"/>
+            <ellipse cx="-80" cy="-66" rx="11" ry="7" fill="#FFFFFF"/>
+          </g>
+        `;
+      }
+
+      if (hero === "rishi_sage") {
+        return `
+          ${aura}
+          <!-- Illuminated Vedic Maharishi in Padmasana Meditation -->
+          <g transform="translate(320, 195)">
+            <circle cx="0" cy="-76" r="9" fill="#140B06" stroke="${pal.sun}" stroke-width="2"/>
+            <circle cx="0" cy="-58" r="15" fill="#140B06" stroke="${pal.sun}" stroke-width="2.4"/>
+            <path d="M-22,-40 L22,-40 L30,22 L-30,22 Z" fill="#140B06" stroke="${pal.accent}" stroke-width="2.4"/>
+            <ellipse cx="0" cy="30" rx="46" ry="14" fill="#140B06" stroke="${pal.sun}" stroke-width="2.5"/>
+          </g>
+        `;
+      }
+
+      // Default: Legendary Divine Archer (Arjuna / Lord Rama with Gandiva / Kodanda Bow)
+      return `
+        ${aura}
+        <!-- Legendary Divine Archer with Towering Curved Bow & Blazing Arrow -->
+        <g transform="translate(310, 188)">
+          <polygon points="-13,-78 0,-98 13,-78" fill="${pal.sun}"/>
+          <circle cx="0" cy="-62" r="15" fill="#120A06" stroke="${pal.sun}" stroke-width="2.4"/>
+          <path d="M-22,-44 L20,-44 L18,18 L-20,18 Z" fill="#120A06" stroke="${pal.accent}" stroke-width="2.4"/>
+          <!-- Heroic Stance Legs -->
+          <path d="M-12,18 L-34,68 M12,18 L38,68" fill="none" stroke="${pal.sun}" stroke-width="7" stroke-linecap="round"/>
+          <!-- Drawing Arms -->
+          <path d="M-18,-36 L-44,-28 M18,-36 L58,-32" fill="none" stroke="${pal.sun}" stroke-width="6.5" stroke-linecap="round"/>
+          <!-- Towering Sacred Kodanda / Gandiva Bow -->
+          <path d="M42,-104 C88,-62 88,2 42,44" fill="none" stroke="${pal.sun}" stroke-width="4.5" stroke-linecap="round"/>
+          <line x1="42" y1="-104" x2="-42" y2="-28" stroke="#FFFFFF" stroke-width="1.3" opacity="0.8"/>
+          <line x1="42" y1="44" x2="-42" y2="-28" stroke="#FFFFFF" stroke-width="1.3" opacity="0.8"/>
+          <!-- Blazing Divya Astra Arrow -->
+          <line x1="-44" y1="-28" x2="108" y2="-28" stroke="#FFFFFF" stroke-width="3"/>
+          <polygon points="116,-28 96,-36 101,-28 96,-20" fill="${pal.sun}"/>
+        </g>
+      `;
+    }
+
+    function createEpicCinemaSVG(chapter, idx) {
+      const meta = inferSceneMeta(chapter, idx);
+      const pal = SKY_PALETTES[meta.lighting] || SKY_PALETTES.golden_dawn;
+      const uid = `scene_${idx}_${Math.floor(Math.random() * 100000)}`;
+
+      return `
+        <svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" class="w-full h-full block select-none">
+          <defs>
+            <linearGradient id="sky_${uid}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="${pal.top}"/>
+              <stop offset="55%" stop-color="${pal.mid}"/>
+              <stop offset="100%" stop-color="${pal.horizon}"/>
+            </linearGradient>
+            <radialGradient id="heroHalo" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="${pal.sun}" stop-opacity="0.65"/>
+              <stop offset="55%" stop-color="${pal.accent}" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="${pal.accent}" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="vignette_${uid}" cx="50%" cy="50%" r="70%">
+              <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#000000" stop-opacity="0.72"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Atmospheric Epic Sky -->
+          <rect width="640" height="360" fill="url(#sky_${uid})"/>
+
+          <!-- Rotating Volumetric Celestial God-Rays -->
+          <g class="god-rays-spin" opacity="0.22">
+            <polygon points="320,185 275,0 365,0" fill="${pal.sun}"/>
+            <polygon points="320,185 640,120 640,240" fill="${pal.sun}"/>
+            <polygon points="320,185 275,360 365,360" fill="${pal.sun}"/>
+            <polygon points="320,185 0,120 0,240" fill="${pal.sun}"/>
+            <polygon points="320,185 540,0 640,70" fill="${pal.accent}"/>
+            <polygon points="320,185 100,0 0,70" fill="${pal.accent}"/>
+          </g>
+
+          <!-- Moving Camera Scene Group -->
+          <g class="cinema-drift">
+            ${buildEnvironmentLayer(meta.env, pal)}
+            ${buildLegendaryHeroLayer(meta.hero, pal)}
+          </g>
+
+          <!-- Floating Sacred Fire Embers / Celestial Motes -->
+          <g class="ember-float">
+            <circle cx="140" cy="120" r="3" fill="${pal.sun}"/>
+            <circle cx="195" cy="215" r="2.5" fill="#FFFFFF"/>
+            <circle cx="465" cy="110" r="3.2" fill="${pal.sun}"/>
+            <circle cx="510" cy="195" r="2.4" fill="${pal.accent}"/>
+            <circle cx="255" cy="82" r="2.2" fill="#FFFFFF"/>
+            <circle cx="395" cy="76" r="2.8" fill="${pal.sun}"/>
+          </g>
+
+          <!-- Widescreen Cinema Vignette -->
+          <rect width="640" height="360" fill="url(#vignette_${uid})"/>
+        </svg>
+      `;
+    }
+
+    /********************************************************************
+     * 6. ALL 22 CATEGORIES & 307 CANONICAL SCRIPTURES
      ********************************************************************/
     const SCRIPTURES_CODEX = [
       {
@@ -1172,15 +1505,12 @@
     ];
 
     /********************************************************************
-     * 6. ORACLE & CINEMATIC AI VISUAL STATE
+     * 7. ORACLE STATE & API CONFIGURATION
      ********************************************************************/
     let currentMode = "story";
     let currentStoryData = null;
     let currentChapterIndex = 0;
-    let chapterImages = [];
-    let galleryImages = [null, null, null];
     let activeGranthaName = "";
-    let activeSessionId = 0;
 
     function getApiConfig() {
       const savedModel = localStorage.getItem("GK_MODEL");
@@ -1239,87 +1569,7 @@
     }
 
     /********************************************************************
-     * 7. CINEMATIC MOVIE SCENE GENERATOR (100% AI GENERATED VISUALS)
-     ********************************************************************/
-    function buildLegendaryCinemaPrompt(storyTitle, chapter) {
-      const sceneDesc = chapter.cinematicMoviePrompt || chapter.aiArtPrompt || chapter.storyNarrative.slice(0, 260);
-      return (
-        `Epic blockbuster Indian mythological movie still, IMAX 70mm widescreen cinema frame, ` +
-        `legendary larger-than-life characters in ornate royal golden armor, silk dhotis, glowing divine celestial aura, ` +
-        `iconic sacred weapons, dramatic volumetric sunbeams and temple firelight, photorealistic epic film cinematography, ` +
-        `ultra-detailed textures, shallow depth of field, no text or subtitles: ` +
-        `${storyTitle} — Scene: ${chapter.chapterTitle}. ${sceneDesc}`
-      );
-    }
-
-    async function generateEpicMovieFrame(promptText) {
-      const cfg = getApiConfig();
-      if (!cfg.proxyUrl) return null;
-      try {
-        const imgEndpoint = cfg.proxyUrl.replace(/\/api\/grantha-oracle\/?$/, "/api/grantha-image");
-        const res = await fetch(imgEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: promptText })
-        });
-        const data = await res.json();
-        if (res.ok && data.imageUrl) {
-          return data.imageUrl;
-        }
-      } catch (e) {}
-      return null;
-    }
-
-    async function renderCinematicScenes(sessionId, storyData) {
-      const chapters = storyData?.chapters || [];
-
-      const renderOneChapter = async (idx, delayMs = 0) => {
-        if (delayMs > 0) {
-          await new Promise(r => setTimeout(r, delayMs));
-        }
-        if (sessionId !== activeSessionId) return;
-        const ch = chapters[idx];
-        if (!ch) return;
-
-        const moviePrompt = buildLegendaryCinemaPrompt(storyData.title, ch);
-        const aiUrl = await generateEpicMovieFrame(moviePrompt);
-        if (sessionId !== activeSessionId) return;
-
-        if (aiUrl) {
-          const sceneObj = {
-            url: aiUrl,
-            caption: `Scene ${idx + 1}: ${ch.chapterTitle}`,
-            source: "AI Epic Cinema"
-          };
-          chapterImages[idx] = sceneObj;
-          if (idx < 3) {
-            galleryImages[idx] = sceneObj;
-            renderTopCinemaStoryboard();
-          }
-          if (currentChapterIndex === idx) {
-            updateChapterView();
-          }
-        } else {
-          // Mark failed state cleanly so user can retry that specific scene
-          chapterImages[idx] = { error: true, caption: ch.chapterTitle };
-          if (idx < 3) renderTopCinemaStoryboard();
-          if (currentChapterIndex === idx) updateChapterView();
-        }
-      };
-
-      // Generate the first 3 movie storyboard scenes concurrently, then Scene 4
-      await Promise.all([
-        renderOneChapter(0, 0),
-        renderOneChapter(1, 350),
-        renderOneChapter(2, 700)
-      ]);
-      if (chapters.length > 3) {
-        await renderOneChapter(3, 250);
-      }
-    }
-
-    /********************************************************************
-     * 8. CALLING GEMINI AI
+     * 8. CALLING GEMINI AI (SINGLE FAST TEXT + SCENE DIRECTOR CALL)
      ********************************************************************/
     async function callGeminiJSON(systemInstruction, userPrompt) {
       const cfg = getApiConfig();
@@ -1374,14 +1624,11 @@
     }
 
     /********************************************************************
-     * 9. ORACLE INVOCATION & CINEMATIC STORYBOARD RENDERING
+     * 9. ORACLE INVOCATION & INSTANT CINEMATIC STORYBOARD RENDERING
      ********************************************************************/
     async function invokeOracle() {
       const query = document.getElementById("oracle-input").value.trim();
       if (!query) return;
-
-      activeSessionId += 1;
-      const thisSession = activeSessionId;
 
       const loadingEl = document.getElementById("oracle-loading");
       const errorEl = document.getElementById("oracle-error");
@@ -1401,7 +1648,12 @@ Always respond in valid JSON adhering strictly to this schema:
     {
       "chapterNumber": 1,
       "chapterTitle": "Title of chapter/scene",
-      "cinematicMoviePrompt": "Vivid cinematic movie shot description portraying the legendary characters in heroic divine attire, glowing aura, dramatic poses, sacred weapons, and epic mythic setting strictly matching this chapter's narrative",
+      "sceneDirector": {
+        "legendaryFigure": "Choose ONE matching this scene: archer_warrior | hanuman_mighty | krishna_divine | shiva_nataraja | devi_shakti | vishnu_narayana | vishvarupa_avatar | rishi_sage",
+        "environment": "Choose ONE matching this scene: kurukshetra_chariot | cosmic_vishvarupa | kailasa_peaks | ocean_samudra | forest_hermitage | ayodhya_court",
+        "lighting": "Choose ONE: golden_dawn | cosmic_nebula | inferno_crimson | celestial_azure | sacred_amber",
+        "cinematicSubtitle": "Dramatic 5-word movie shot caption describing this exact scene"
+      },
       "storyNarrative": "Rich, vivid narrative or conceptual explanation (120-160 words)",
       "sanskritShloka": "Authentic or representative Sanskrit verse in Devanagari",
       "transliteration": "IAST transliteration of the verse",
@@ -1418,20 +1670,11 @@ Provide exactly 4 chapters.`;
 
       try {
         const result = await callGeminiJSON(systemPrompt, `Mode: ${currentMode.toUpperCase()}. User Query: ${query}`);
-        if (thisSession !== activeSessionId) return;
-
         currentStoryData = result;
         currentChapterIndex = 0;
 
-        // Initialize empty AI scene slots (zero external/Wikimedia images)
-        chapterImages = (result.chapters || []).map(() => null);
-        galleryImages = [null, null, null];
-
         renderOracleResult(result);
         spawnAstraWave(window.innerWidth / 2, window.innerHeight * 0.35);
-
-        // Generate all AI cinematic movie scenes directly from the textual chapters
-        renderCinematicScenes(thisSession, result);
       } catch (err) {
         errorEl.textContent = err.message;
         errorEl.classList.remove("hidden");
@@ -1440,37 +1683,25 @@ Provide exactly 4 chapters.`;
       }
     }
 
-    function renderTopCinemaStoryboard() {
+    function renderTopCinemaStoryboard(data) {
       const container = document.getElementById("top-art-collage");
-      if (!container || !currentStoryData?.chapters) return;
+      if (!container || !data?.chapters?.length) return;
 
-      const ch0 = currentStoryData.chapters[0];
-      const ch1 = currentStoryData.chapters[1] || ch0;
-      const ch2 = currentStoryData.chapters[2] || ch1;
+      const ch0 = data.chapters[0];
+      const ch1 = data.chapters[1] || ch0;
+      const ch2 = data.chapters[2] || ch1;
 
-      const g0 = galleryImages[0];
-      const g1 = galleryImages[1];
-      const g2 = galleryImages[2];
-
-      const renderSlot = (imgObj, chObj, sceneNum, heightClass) => {
-        if (imgObj && imgObj.url) {
-          return `
-            <div onclick="goToChapter(${sceneNum - 1})" class="relative rounded-xl overflow-hidden ${heightClass} bg-[#160E0A] cursor-pointer group">
-              <img src="${imgObj.url}" alt="${imgObj.caption}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-              <div class="absolute top-2 left-2 px-2 py-0.5 rounded bg-black/75 border border-amber-400/40 text-[10px] font-bold uppercase tracking-wider text-amber-300">
-                Scene ${sceneNum}
-              </div>
-              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent p-2.5">
-                <p class="text-[11px] text-amber-100 font-medium line-clamp-1">${chObj?.chapterTitle || ""}</p>
-              </div>
-            </div>
-          `;
-        }
+      const renderSceneTile = (chObj, sceneIdx, heightClass) => {
+        const meta = inferSceneMeta(chObj, sceneIdx);
         return `
-          <div class="relative rounded-xl overflow-hidden ${heightClass} cinema-skeleton border border-amber-500/20 flex flex-col items-center justify-center p-3 text-center">
-            <div class="w-6 h-6 rounded-full border-2 border-amber-400/30 border-t-amber-400 animate-spin mb-1.5"></div>
-            <span class="text-[10px] font-display font-bold uppercase tracking-wider text-amber-300">🎬 Rendering Scene ${sceneNum}</span>
-            <p class="text-[10px] text-amber-200/60 line-clamp-1 mt-0.5">${chObj?.chapterTitle || ""}</p>
+          <div onclick="goToChapter(${sceneIdx})" class="relative rounded-xl overflow-hidden ${heightClass} border border-amber-500/30 cursor-pointer group">
+            ${createEpicCinemaSVG(chObj, sceneIdx)}
+            <div class="absolute top-2 left-2 px-2 py-0.5 rounded bg-black/75 backdrop-blur-sm border border-amber-400/45 text-[10px] font-bold uppercase tracking-wider text-amber-300">
+              🎬 Scene ${sceneIdx + 1}
+            </div>
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent p-2.5">
+              <p class="text-[11px] text-amber-100 font-semibold line-clamp-1 group-hover:text-amber-300 transition">${meta.tagline}</p>
+            </div>
           </div>
         `;
       };
@@ -1478,11 +1709,11 @@ Provide exactly 4 chapters.`;
       container.innerHTML = `
         <div class="grid grid-cols-12 gap-2.5 mb-7 rounded-2xl overflow-hidden border border-amber-500/35 bg-black/85 p-2.5 shadow-2xl">
           <div class="col-span-7">
-            ${renderSlot(g0, ch0, 1, "h-56 sm:h-72")}
+            ${renderSceneTile(ch0, 0, "h-56 sm:h-72")}
           </div>
           <div class="col-span-5 grid grid-rows-2 gap-2.5">
-            ${renderSlot(g1, ch1, 2, "h-[6.7rem] sm:h-[8.65rem]")}
-            ${renderSlot(g2, ch2, 3, "h-[6.7rem] sm:h-[8.65rem]")}
+            ${renderSceneTile(ch1, 1, "h-[6.7rem] sm:h-[8.65rem]")}
+            ${renderSceneTile(ch2, 2, "h-[6.7rem] sm:h-[8.65rem]")}
           </div>
         </div>
       `;
@@ -1508,13 +1739,13 @@ Provide exactly 4 chapters.`;
 
           <!-- Chapter Visual Movie Frame + Story Narrative Grid -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            <!-- Left: AI Epic Movie Frame Panel -->
+            <!-- Left: Instant Animated Epic Movie Frame Panel -->
             <div class="lg:col-span-5 rounded-2xl bg-black border border-amber-500/35 overflow-hidden flex flex-col justify-between relative min-h-[360px]">
               <div id="chapter-visual-frame" class="w-full h-full min-h-[360px] relative overflow-hidden bg-[#140B08]"></div>
 
               <div class="p-3.5 bg-gradient-to-t from-black via-black/90 to-transparent absolute bottom-0 inset-x-0 flex flex-wrap items-center justify-between gap-2">
-                <button id="btn-paint-ai" onclick="regenerateCurrentChapterArt()" class="mythic-btn mythic-btn-primary px-3 py-1.5 rounded-lg text-xs transition">
-                  🎬 Re-Shoot Movie Scene
+                <button onclick="shiftSceneLighting()" class="mythic-btn mythic-btn-primary px-3 py-1.5 rounded-lg text-xs transition">
+                  ✨ Shift Divine Aura
                 </button>
                 <button onclick="narrateCurrentChapter()" class="mythic-btn px-3 py-1.5 rounded-lg bg-black/80 hover:bg-amber-500/25 border border-amber-400/50 text-amber-200 text-xs font-semibold transition">
                   🔊 Listen Narration
@@ -1577,7 +1808,7 @@ Provide exactly 4 chapters.`;
         </div>
       `;
 
-      renderTopCinemaStoryboard();
+      renderTopCinemaStoryboard(data);
       updateChapterView();
     }
 
@@ -1585,7 +1816,7 @@ Provide exactly 4 chapters.`;
       if (!currentStoryData?.chapters?.length) return;
       const chapters = currentStoryData.chapters;
       const ch = chapters[currentChapterIndex];
-      const imgObj = chapterImages[currentChapterIndex];
+      const meta = inferSceneMeta(ch, currentChapterIndex);
 
       document.getElementById("chapter-badge").textContent = `Adhyāya ${currentChapterIndex + 1} of ${chapters.length}`;
       document.getElementById("chapter-title").textContent = ch.chapterTitle || "";
@@ -1596,35 +1827,19 @@ Provide exactly 4 chapters.`;
       document.getElementById("chapter-meaning").textContent = ch.adhyatmikaMeaning || "";
 
       const frame = document.getElementById("chapter-visual-frame");
-      if (imgObj && imgObj.url) {
-        frame.innerHTML = `
-          <img src="${imgObj.url}" alt="${ch.chapterTitle}" class="w-full h-full min-h-[360px] object-cover animate-cinema-pan" />
-          <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
-            <span class="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-amber-400/50 text-[11px] font-semibold text-amber-200">
-              🎬 Scene ${currentChapterIndex + 1} &bull; Legendary Cinema Frame
-            </span>
-          </div>
-          <div class="absolute bottom-14 inset-x-0 bg-gradient-to-t from-black/95 to-transparent px-3.5 py-2">
-            <p class="text-[11px] text-amber-200/95 line-clamp-1">${ch.chapterTitle}</p>
-          </div>
-        `;
-      } else if (imgObj && imgObj.error) {
-        frame.innerHTML = `
-          <div class="w-full h-full min-h-[360px] flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-amber-950/60 via-black to-orange-950/40">
-            <span class="text-4xl mb-2">🎬</span>
-            <p class="font-display text-sm font-bold text-amber-200">${ch.chapterTitle}</p>
-            <p class="text-xs text-amber-200/65 mt-1 max-w-xs">Image studio was momentarily busy. Tap "Re-Shoot Movie Scene" below to render this epic frame.</p>
-          </div>
-        `;
-      } else {
-        frame.innerHTML = `
-          <div class="w-full h-full min-h-[360px] cinema-skeleton flex flex-col items-center justify-center p-6 text-center">
-            <div class="w-11 h-11 rounded-full border-2 border-amber-500/30 border-t-amber-400 animate-spin mb-3"></div>
-            <p class="font-display text-sm font-bold text-amber-200">🎬 Filming Scene ${currentChapterIndex + 1}...</p>
-            <p class="text-xs text-amber-200/65 mt-1.5 max-w-xs">${ch.cinematicMoviePrompt || ch.chapterTitle}</p>
-          </div>
-        `;
-      }
+      frame.innerHTML = `
+        <div class="w-full h-full min-h-[360px]">
+          ${createEpicCinemaSVG(ch, currentChapterIndex)}
+        </div>
+        <div class="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+          <span class="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-amber-400/50 text-[11px] font-semibold text-amber-200">
+            🎬 Scene ${currentChapterIndex + 1} &bull; Epic Cinema Frame
+          </span>
+        </div>
+        <div class="absolute bottom-14 inset-x-0 bg-gradient-to-t from-black/95 to-transparent px-3.5 py-2 pointer-events-none">
+          <p class="text-[11px] text-amber-200/95 font-medium line-clamp-1">${meta.tagline}</p>
+        </div>
+      `;
 
       const dotsContainer = document.getElementById("chapter-dots");
       dotsContainer.innerHTML = chapters
@@ -1632,40 +1847,15 @@ Provide exactly 4 chapters.`;
         .join("");
     }
 
-    async function regenerateCurrentChapterArt() {
+    function shiftSceneLighting() {
       if (!currentStoryData?.chapters?.length) return;
       const ch = currentStoryData.chapters[currentChapterIndex];
-      const btn = document.getElementById("btn-paint-ai");
-      const originalText = btn.textContent;
-      btn.textContent = "⏳ Filming...";
-      btn.disabled = true;
-
-      chapterImages[currentChapterIndex] = null;
+      const keys = Object.keys(SKY_PALETTES);
+      const currentLight = ch.sceneDirector?.lighting || keys[currentChapterIndex % keys.length];
+      const nextLight = keys[(keys.indexOf(currentLight) + 1) % keys.length];
+      ch.sceneDirector = { ...(ch.sceneDirector || {}), lighting: nextLight };
       updateChapterView();
-
-      try {
-        const moviePrompt = `${buildLegendaryCinemaPrompt(currentStoryData.title, ch)} (camera take ${Date.now() % 1000})`;
-        const aiUrl = await generateEpicMovieFrame(moviePrompt);
-        if (aiUrl) {
-          const sceneObj = {
-            url: aiUrl,
-            caption: `Scene ${currentChapterIndex + 1}: ${ch.chapterTitle}`,
-            source: "AI Epic Cinema"
-          };
-          chapterImages[currentChapterIndex] = sceneObj;
-          if (currentChapterIndex < 3) {
-            galleryImages[currentChapterIndex] = sceneObj;
-            renderTopCinemaStoryboard();
-          }
-          updateChapterView();
-        } else {
-          chapterImages[currentChapterIndex] = { error: true };
-          updateChapterView();
-        }
-      } finally {
-        btn.textContent = originalText;
-        btn.disabled = false;
-      }
+      renderTopCinemaStoryboard(currentStoryData);
     }
 
     function prevChapter() {
@@ -1769,7 +1959,7 @@ Provide exactly 4 chapters.`;
           <strong>${title}</strong> is a revered canonical scripture within <em>${category}</em> in the 307-Grantha Sanātana Kosha.
         </p>
         <p class="text-amber-200/75">
-          Click <strong>"Explore in AI Oracle"</strong> below or customize your question to generate a complete 4-chapter cinematic narrative, legendary character visuals, Sanskrit shlokas, and philosophical commentary from <strong>${title}</strong>.
+          Click <strong>"Explore in AI Oracle"</strong> below or customize your question to generate a complete 4-chapter cinematic narrative, legendary character scenes, Sanskrit shlokas, and philosophical commentary from <strong>${title}</strong>.
         </p>
       `;
       document.getElementById("grantha-modal").classList.remove("hidden");
