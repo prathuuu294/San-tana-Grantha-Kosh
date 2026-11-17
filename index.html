@@ -41,6 +41,14 @@
     .gold-glow {
       box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.22);
     }
+    @keyframes kenBurnsSlow {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.07) translate(-1%, -1%); }
+      100% { transform: scale(1) translate(0, 0); }
+    }
+    .animate-ken-burns {
+      animation: kenBurnsSlow 18s ease-in-out infinite;
+    }
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -60,44 +68,44 @@
 <body class="min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-black">
 
   <!-- TOP NAVIGATION -->
-  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0B0706]/90 border-b border-amber-500/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 via-orange-600 to-red-800 flex items-center justify-center shadow-lg shadow-amber-500/20 border border-amber-300/40">
-          <span class="font-devanagari text-2xl font-bold text-black">ॐ</span>
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0B0706]/95 border-b border-amber-500/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[5rem] py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-500 via-orange-600 to-red-800 flex items-center justify-center shadow-lg shadow-amber-500/20 border border-amber-300/40 shrink-0">
+          <span class="font-devanagari text-xl sm:text-2xl font-bold text-black">ॐ</span>
         </div>
-        <div>
-          <div class="flex items-center gap-2.5 flex-wrap">
-            <span class="font-display text-lg sm:text-xl font-bold tracking-wider bg-gradient-to-r from-amber-200 via-amber-400 to-orange-500 bg-clip-text text-transparent">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-display text-sm sm:text-xl font-bold tracking-wider bg-gradient-to-r from-amber-200 via-amber-400 to-orange-500 bg-clip-text text-transparent truncate">
               SANĀTANA GRANTHA KOSH
             </span>
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 font-semibold tracking-wide">
+            <span class="text-[11px] sm:text-xs px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 font-semibold tracking-wide shrink-0">
               by Pratham Salunke
             </span>
           </div>
-          <p class="text-xs text-amber-200/60 hidden sm:block">
+          <p class="text-xs text-amber-200/60 hidden md:block">
             Complete 307 Sacred Scriptures Codex &bull; Gemini AI Katha &amp; Shastra Oracle
           </p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2 sm:gap-3">
-        <a href="#oracle-section" class="px-3 py-1.5 text-xs sm:text-sm font-medium text-amber-200 hover:text-amber-400 transition">
+      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        <a href="#oracle-section" class="px-2.5 py-1.5 text-xs sm:text-sm font-medium text-amber-200 hover:text-amber-400 transition hidden sm:inline">
           AI Oracle
         </a>
-        <a href="#codex-section" class="px-3 py-1.5 text-xs sm:text-sm font-medium text-amber-200 hover:text-amber-400 transition">
+        <a href="#codex-section" class="px-2.5 py-1.5 text-xs sm:text-sm font-medium text-amber-200 hover:text-amber-400 transition">
           307 Granthas
         </a>
-        <button onclick="openApiModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition">
+        <button onclick="openApiModal()" class="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 transition">
           <span id="api-status-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-          <span>AI Settings</span>
+          <span>Settings</span>
         </button>
       </div>
     </div>
   </header>
 
   <!-- HERO SECTION -->
-  <section class="relative overflow-hidden py-12 sm:py-16 border-b border-amber-500/15">
+  <section class="relative overflow-hidden py-10 sm:py-14 border-b border-amber-500/15">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-950/60 border border-amber-500/30 text-amber-300 text-xs font-medium mb-5">
         <span class="font-devanagari text-sm">सत्यं ज्ञानमनन्तं ब्रह्म</span>
@@ -111,13 +119,13 @@
         by Pratham Salunke
       </p>
       <p class="mt-4 max-w-3xl mx-auto text-sm sm:text-base text-amber-100/75 leading-relaxed">
-        Ask any question, philosophical inquiry, or mythological tale across the Four Vedas, 108 Upanishads, 18 Mahāpurāṇas, 18 Upapurāṇas, Ramayana, Mahabharata, Āgamas, Tantras, Darśanas, and Regional Bhakti Literature—illuminated with animated visual storylines, Sanskrit shlokas, and scriptural synthesis.
+        Ask any question, philosophical inquiry, or mythological tale across the Four Vedas, 108 Upanishads, 18 Mahāpurāṇas, 18 Upapurāṇas, Ramayana, Mahabharata, Āgamas, Tantras, Darśanas, and Regional Bhakti Literature—illuminated with sacred art galleries, chapter-by-chapter visual storylines, Sanskrit shlokas, and scriptural synthesis.
       </p>
     </div>
   </section>
 
   <!-- ORACLE WORKSPACE -->
-  <section id="oracle-section" class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10">
+  <section id="oracle-section" class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
     <div class="rounded-2xl bg-[#130C09]/95 gold-border gold-glow p-5 sm:p-8">
       <!-- Mode Selector -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-amber-500/15">
@@ -131,7 +139,7 @@
         </div>
         <div class="inline-flex rounded-xl p-1 bg-black/60 border border-amber-500/25 self-start">
           <button id="btn-mode-story" onclick="setOracleMode('story')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition bg-gradient-to-r from-amber-500 to-orange-600 text-black shadow">
-            ✨ Animated Katha Storyline
+            ✨ Illustrated Katha Storyline
           </button>
           <button id="btn-mode-shastra" onclick="setOracleMode('shastra')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-amber-200/75 hover:text-amber-200">
             📜 Shastra &amp; History Synthesis
@@ -145,7 +153,7 @@
           <input
             id="oracle-input"
             type="text"
-            placeholder="Ask any question or tale (e.g., 'Explain Samudra Manthan and its inner meaning', 'What does Katha Upanishad teach about Nachiketa and Yama?')"
+            placeholder="Ask any question or tale (e.g., 'Who was Lord Hanuman?', 'Explain Samudra Manthan')"
             class="flex-1 rounded-xl bg-black/70 border border-amber-500/30 px-4 py-3.5 text-sm sm:text-base text-amber-50 placeholder-amber-200/35 focus:outline-none focus:border-amber-400"
             onkeydown="if(event.key === 'Enter') invokeOracle()"
           />
@@ -162,20 +170,20 @@
         <!-- Sample Quick Prompts -->
         <div class="mt-3 flex flex-wrap items-center gap-2">
           <span class="text-xs text-amber-300/60">Try asking:</span>
+          <button onclick="quickPrompt('Who was Lord Hanuman? Explain his birth, Ashtasiddhis, and role in Ramayana')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
+            🚩 Lord Hanuman
+          </button>
           <button onclick="quickPrompt('Narrate the cosmic story of Samudra Manthan from Bhagavata and Vishnu Purana with inner symbolism')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
             🌊 Samudra Manthan
           </button>
           <button onclick="quickPrompt('Explain Nachiketa and Lord Yama dialogue on Atman and immortality in Katha Upanishad')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
-            🔥 Nachiketa &amp; Yama (Katha Upanishad)
+            🔥 Nachiketa &amp; Yama
           </button>
-          <button onclick="quickPrompt('How does Surya Siddhanta and Aryabhatiya calculate cosmic time (Yugas and Kalpas) and planetary motion?')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
-            🪐 Cosmic Time in Surya Siddhanta
+          <button onclick="quickPrompt('Narrate the Kurukshetra Bhagavad Gita dialogue between Lord Krishna and Arjuna')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
+            🏹 Krishna &amp; Arjuna (Gita)
           </button>
-          <button onclick="quickPrompt('Compare Advaita, Vishishtadvaita, and Dvaita Vedanta interpretations of Tat Tvam Asi')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
-            🕉️ 3 Vedanta Schools on Tat Tvam Asi
-          </button>
-          <button onclick="quickPrompt('Explain the surgical and medical legacy of Sushruta Samhita and Charaka Samhita')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
-            🌿 Ayurveda: Sushruta &amp; Charaka
+          <button onclick="quickPrompt('Explain the cosmic dance of Shiva Nataraja and Shaiva Agama symbolism')" class="text-xs px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-200 transition">
+            🔱 Shiva Nataraja
           </button>
         </div>
       </div>
@@ -183,17 +191,15 @@
       <!-- Loading Indicator -->
       <div id="oracle-loading" class="hidden py-14 text-center">
         <div class="inline-block w-14 h-14 rounded-full border-4 border-amber-500/30 border-t-amber-400 animate-spin mb-4"></div>
-        <p class="font-display text-lg text-amber-200">Consulting the 307 Sacred Granthas via Gemini AI...</p>
-        <p class="text-xs text-amber-200/50 mt-1">Synthesizing Sanskrit shlokas, visual chapters, and philosophical commentaries</p>
+        <p class="font-display text-lg text-amber-200">Consulting the 307 Sacred Granthas &amp; Sacred Art Archives...</p>
+        <p class="text-xs text-amber-200/50 mt-1">Synthesizing Sanskrit shlokas, classical paintings, and philosophical commentaries</p>
       </div>
 
       <!-- Error Message -->
       <div id="oracle-error" class="hidden mt-6 p-4 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-sm"></div>
 
       <!-- Output Area -->
-      <div id="oracle-output" class="mt-8">
-        <!-- Populated dynamically with Storyline Player or Shastra Synthesis -->
-      </div>
+      <div id="oracle-output" class="mt-8"></div>
     </div>
   </section>
 
@@ -275,36 +281,30 @@
         <button onclick="closeApiModal()" class="text-amber-300/70 hover:text-amber-200 text-2xl leading-none">&times;</button>
       </div>
       <div class="mt-4 space-y-4 text-xs sm:text-sm text-amber-100/80">
-        <p>
-          Connect this website to Gemini AI using either a **Backend Proxy URL** (recommended for public deployment so visitors don't need a key) or a **Google AI Studio API Key**.
-        </p>
         <div>
-          <label class="block text-xs font-semibold text-amber-300 mb-1">Option 1: Backend Proxy Endpoint URL (Optional)</label>
+          <label class="block text-xs font-semibold text-amber-300 mb-1">Backend Proxy Endpoint URL</label>
           <input
             id="config-proxy-url"
             type="text"
-            placeholder="https://yourusername.pythonanywhere.com/api/grantha-oracle"
+            placeholder="https://Sanatani2003.pythonanywhere.com/api/grantha-oracle"
             class="w-full rounded-lg bg-black/70 border border-amber-500/30 px-3 py-2 text-sm text-amber-50"
           />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-amber-300 mb-1">Option 2: Direct Gemini API Key (Google AI Studio)</label>
+          <label class="block text-xs font-semibold text-amber-300 mb-1">Direct Gemini API Key (Optional Override)</label>
           <input
             id="config-api-key"
             type="password"
-            placeholder="AIzaSy..."
+            placeholder="Leave empty when using Backend Proxy"
             class="w-full rounded-lg bg-black/70 border border-amber-500/30 px-3 py-2 text-sm text-amber-50"
           />
-          <p class="text-[11px] text-amber-200/50 mt-1">
-            Stored locally in your browser's <code>localStorage</code>. Get a key at <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline text-amber-400">aistudio.google.com</a>.
-          </p>
         </div>
         <div>
           <label class="block text-xs font-semibold text-amber-300 mb-1">Gemini Model</label>
-                    <select id="config-model" class="w-full rounded-lg bg-black/70 border border-amber-500/30 px-3 py-2 text-sm text-amber-50">
+          <select id="config-model" class="w-full rounded-lg bg-black/70 border border-amber-500/30 px-3 py-2 text-sm text-amber-50">
             <option value="gemini-3.8-flash">gemini-3.8-flash (Recommended)</option>
-            <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Fast &amp; High Quota)</option>
             <option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite</option>
+            <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite</option>
           </select>
         </div>
       </div>
@@ -333,11 +333,10 @@
   <script>
     /********************************************************************
      * 1. CONFIGURATION FOR GITHUB PAGES DEPLOYMENT
-     * You can hardcode your PythonAnywhere Flask proxy URL here so every
-     * visitor gets instant answers without entering an API key!
      ********************************************************************/
     const DEFAULT_BACKEND_PROXY_URL = "https://Sanatani2003.pythonanywhere.com/api/grantha-oracle";
-const DEFAULT_GEMINI_API_KEY = "";
+    const DEFAULT_GEMINI_API_KEY = "";
+
     /********************************************************************
      * 2. ALL 22 CATEGORIES & 307 CANONICAL SCRIPTURES
      ********************************************************************/
@@ -472,15 +471,15 @@ const DEFAULT_GEMINI_API_KEY = "";
     ];
 
     /********************************************************************
-     * 3. STATE & INITIALIZATION
+     * 3. STATE & CONFIGURATION
      ********************************************************************/
     let currentMode = "story";
     let currentStoryData = null;
     let currentChapterIndex = 0;
-    let animationFrameId = null;
+    let chapterImages = [];
     let activeGranthaName = "";
 
-        function getApiConfig() {
+    function getApiConfig() {
       const savedModel = localStorage.getItem("GK_MODEL");
       const validModel = savedModel && !savedModel.startsWith("gemini-2.") ? savedModel : "gemini-3.8-flash";
       return {
@@ -493,11 +492,9 @@ const DEFAULT_GEMINI_API_KEY = "";
     function updateApiStatusBadge() {
       const cfg = getApiConfig();
       const dot = document.getElementById("api-status-dot");
-      if (cfg.proxyUrl || cfg.apiKey) {
-        dot.className = "w-2 h-2 rounded-full bg-emerald-400";
-      } else {
-        dot.className = "w-2 h-2 rounded-full bg-amber-400 animate-pulse";
-      }
+      dot.className = (cfg.proxyUrl || cfg.apiKey)
+        ? "w-2 h-2 rounded-full bg-emerald-400"
+        : "w-2 h-2 rounded-full bg-amber-400 animate-pulse";
     }
 
     function openApiModal() {
@@ -539,13 +536,50 @@ const DEFAULT_GEMINI_API_KEY = "";
     }
 
     /********************************************************************
-     * 4. CALLING GEMINI AI (SUPPORTS PROXY OR DIRECT KEY)
+     * 4. WIKIMEDIA SACRED ART & PAINTING FETCHER (PER CHAPTER & GALLERY)
+     ********************************************************************/
+    async function fetchSacredPaintings(searchQuery, count = 4) {
+      try {
+        const cleanQuery = `${searchQuery} Hindu painting OR sculpture`;
+        const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=filetype:bitmap%20${encodeURIComponent(cleanQuery)}&gsrnamespace=6&gsrlimit=12&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=800&format=json&origin=*`;
+        const res = await fetch(url);
+        const json = await res.json();
+        const pages = Object.values(json?.query?.pages || {});
+
+        const validUrls = [];
+        for (const p of pages) {
+          const info = p?.imageinfo?.[0];
+          const imgUrl = info?.thumburl || info?.url || "";
+          const title = (p?.title || "").toLowerCase();
+          if (
+            imgUrl &&
+            !title.endsWith(".svg") &&
+            !title.endsWith(".pdf") &&
+            !title.includes("map") &&
+            !title.includes("flag") &&
+            !title.includes("logo")
+          ) {
+            validUrls.push({
+              url: imgUrl,
+              caption: (p.title || "").replace(/^File:/i, "").replace(/\.[^.]+$/, "").replace(/_/g, " ")
+            });
+          }
+          if (validUrls.length >= count) break;
+        }
+        return validUrls;
+      } catch (e) {
+        return [];
+      }
+    }
+
+    /********************************************************************
+     * 5. CALLING GEMINI AI
      ********************************************************************/
     async function callGeminiJSON(systemInstruction, userPrompt) {
       const cfg = getApiConfig();
       if (!cfg.proxyUrl && !cfg.apiKey) {
         openApiModal();
-        throw new Error("Please configure your Gemini API Key or Backend Proxy URL in AI Settings first.");
+        throw new Error("Please configure your Gemini Backend Proxy URL in Settings first.");
       }
 
       const payload = {
@@ -557,7 +591,6 @@ const DEFAULT_GEMINI_API_KEY = "";
         }
       };
 
-            // 1. If a Backend Proxy URL is configured, call the backend proxy
       if (cfg.proxyUrl) {
         const res = await fetch(cfg.proxyUrl, {
           method: "POST",
@@ -576,7 +609,6 @@ const DEFAULT_GEMINI_API_KEY = "";
         return JSON.parse(rawText);
       }
 
-      // 2. Otherwise call Google Gemini REST API directly
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${cfg.model}:generateContent`;
       const res = await fetch(endpoint, {
         method: "POST",
@@ -586,19 +618,17 @@ const DEFAULT_GEMINI_API_KEY = "";
         },
         body: JSON.stringify(payload)
       });
-
-      if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(`Gemini API Error (${res.status}): ${errText}`);
-      }
-
+      if (!res.ok) throw new Error(`Gemini API Error (${res.status})`);
       const data = await res.json();
-      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+      const rawText = (data?.candidates?.[0]?.content?.parts?.[0]?.text || "{}")
+        .replace(/^```json\s*/i, "")
+        .replace(/```\s*$/i, "")
+        .trim();
       return JSON.parse(rawText);
     }
 
     /********************************************************************
-     * 5. ORACLE INVOCATION & RENDERING
+     * 6. ORACLE INVOCATION & DYNAMIC VISUAL GALLERY RENDERING
      ********************************************************************/
     async function invokeOracle() {
       const query = document.getElementById("oracle-input").value.trim();
@@ -616,13 +646,15 @@ const DEFAULT_GEMINI_API_KEY = "";
 Always respond in valid JSON adhering strictly to this schema:
 {
   "title": "Majestic title of the tale or concept",
-  "subtitle": "Primary scriptural lineage (e.g., Bhagavata Purana, Skandha 8 / Katha Upanishad)",
+  "subtitle": "Primary scriptural lineage (e.g., Valmiki Ramayana & Shiva Purana)",
   "primarySources": ["List 3 to 5 specific texts from the 307 scriptures"],
-  "animationTheme": "Choose ONE: samudra_manthan | vedic_agni | chakra_mandala | jyotisha_constellation | cosmic_lotus",
+  "gallerySearchTerms": ["3 short English search phrases for Wikimedia classical Indian paintings of this topic, e.g. 'Hanuman Ramayana', 'Panchamukhi Hanuman', 'Hanuman Sanjeevani'"],
   "chapters": [
     {
       "chapterNumber": 1,
       "chapterTitle": "Title of chapter/phase",
+      "visualSceneQuery": "2 to 4 word English search phrase for a painting of this specific chapter scene",
+      "aiArtPrompt": "Vivid description of this scene for traditional Indian epic painting generation",
       "storyNarrative": "Rich, vivid narrative or conceptual explanation (120-160 words)",
       "sanskritShloka": "Authentic or representative Sanskrit verse in Devanagari",
       "transliteration": "IAST transliteration of the verse",
@@ -641,7 +673,31 @@ Provide exactly 4 chapters.`;
         const result = await callGeminiJSON(systemPrompt, `Mode: ${currentMode.toUpperCase()}. User Query: ${query}`);
         currentStoryData = result;
         currentChapterIndex = 0;
-        renderOracleResult(result);
+
+        // Fetch sacred artwork for the 3-image gallery + each of the 4 chapters in parallel
+        const galleryQueries = result.gallerySearchTerms?.length
+          ? result.gallerySearchTerms
+          : [result.title || query];
+
+        const chapterQueries = (result.chapters || []).map(
+          ch => ch.visualSceneQuery || result.title || query
+        );
+
+        const [galleryResults, ...perChapterResults] = await Promise.all([
+          fetchSacredPaintings(galleryQueries[0], 5),
+          ...chapterQueries.map(q => fetchSacredPaintings(q, 2))
+        ]);
+
+        // Assign distinct artwork to each chapter so every Adhyaya displays a unique image
+        const usedUrls = new Set();
+        chapterImages = (result.chapters || []).map((ch, idx) => {
+          const pool = [...(perChapterResults[idx] || []), ...galleryResults];
+          const pick = pool.find(item => !usedUrls.has(item.url)) || pool[idx % Math.max(1, pool.length)];
+          if (pick) usedUrls.add(pick.url);
+          return pick || null;
+        });
+
+        renderOracleResult(result, galleryResults);
       } catch (err) {
         errorEl.textContent = err.message;
         errorEl.classList.remove("hidden");
@@ -650,15 +706,39 @@ Provide exactly 4 chapters.`;
       }
     }
 
-    function renderOracleResult(data) {
+    function renderOracleResult(data, galleryImages) {
       const outputEl = document.getElementById("oracle-output");
       const sourcesHtml = (data.primarySources || [])
         .map(s => `<span class="px-3 py-1 rounded-full text-xs bg-amber-500/15 border border-amber-400/30 text-amber-300 font-medium">${s}</span>`)
         .join("");
 
+      // 3-Image Sacred Art Collage (1 Large Left + 2 Stacked Right)
+      const g0 = galleryImages[0] || chapterImages[0];
+      const g1 = galleryImages[1] || chapterImages[1] || g0;
+      const g2 = galleryImages[2] || chapterImages[2] || g1;
+
+      const collageHtml = g0 ? `
+        <div class="grid grid-cols-12 gap-2.5 mb-7 rounded-2xl overflow-hidden border border-amber-500/30 bg-black/80 p-2">
+          <div class="col-span-7 relative rounded-xl overflow-hidden h-56 sm:h-72 bg-[#160E0A]">
+            <img src="${g0.url}" alt="${g0.caption}" class="w-full h-full object-cover hover:scale-105 transition duration-700" />
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-2.5">
+              <p class="text-[11px] text-amber-200/90 line-clamp-1">${g0.caption}</p>
+            </div>
+          </div>
+          <div class="col-span-5 grid grid-rows-2 gap-2.5 h-56 sm:h-72">
+            <div class="relative rounded-xl overflow-hidden bg-[#160E0A]">
+              <img src="${g1.url}" alt="${g1.caption}" class="w-full h-full object-cover hover:scale-105 transition duration-700" />
+            </div>
+            <div class="relative rounded-xl overflow-hidden bg-[#160E0A]">
+              <img src="${g2.url}" alt="${g2.caption}" class="w-full h-full object-cover hover:scale-105 transition duration-700" />
+            </div>
+          </div>
+        </div>
+      ` : "";
+
       outputEl.innerHTML = `
         <div class="border-t border-amber-500/20 pt-6">
-          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
             <div>
               <p class="text-xs uppercase tracking-widest text-amber-400 font-semibold">${data.subtitle || "Canonical Synthesis"}</p>
               <h3 class="font-display text-2xl sm:text-3xl font-bold text-amber-50 mt-1">${data.title || "Sacred Revelation"}</h3>
@@ -666,14 +746,22 @@ Provide exactly 4 chapters.`;
             <div class="flex flex-wrap gap-2">${sourcesHtml}</div>
           </div>
 
-          <!-- Interactive Canvas + Story Chapter Grid -->
+          ${collageHtml}
+
+          <!-- Chapter Visual Artwork + Story Narrative Grid -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            <!-- Left: Sacred Procedural Animation Canvas -->
-            <div class="lg:col-span-5 rounded-2xl bg-black border border-amber-500/30 overflow-hidden flex flex-col justify-between relative min-h-[320px]">
-              <canvas id="sacred-canvas" width="520" height="360" class="w-full h-full object-cover"></canvas>
-              <div class="p-4 bg-gradient-to-t from-black via-black/80 to-transparent absolute bottom-0 inset-x-0 flex items-center justify-between">
-                <span class="text-xs text-amber-300 font-medium">✨ Sacred Visual Canvas (${(data.animationTheme || "chakra_mandala").replace("_", " ").toUpperCase()})</span>
-                <button onclick="narrateCurrentChapter()" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs font-semibold">
+            <!-- Left: Dynamic Chapter Illustration Panel -->
+            <div class="lg:col-span-5 rounded-2xl bg-black border border-amber-500/35 overflow-hidden flex flex-col justify-between relative min-h-[340px]">
+              <div id="chapter-visual-frame" class="w-full h-full min-h-[340px] relative overflow-hidden bg-[#140B08]">
+                <!-- Populated dynamically per Adhyaya -->
+              </div>
+
+              <!-- Overlay Controls -->
+              <div class="p-3.5 bg-gradient-to-t from-black via-black/85 to-transparent absolute bottom-0 inset-x-0 flex flex-wrap items-center justify-between gap-2">
+                <button id="btn-paint-ai" onclick="generateCustomChapterArt()" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black text-xs font-bold shadow transition">
+                  🎨 Paint Scene with AI
+                </button>
+                <button onclick="narrateCurrentChapter()" class="px-3 py-1.5 rounded-lg bg-black/80 hover:bg-amber-500/25 border border-amber-400/50 text-amber-200 text-xs font-semibold transition">
                   🔊 Listen Narration
                 </button>
               </div>
@@ -735,13 +823,13 @@ Provide exactly 4 chapters.`;
       `;
 
       updateChapterView();
-      startSacredCanvasAnimation(data.animationTheme || "chakra_mandala");
     }
 
     function updateChapterView() {
       if (!currentStoryData?.chapters?.length) return;
       const chapters = currentStoryData.chapters;
       const ch = chapters[currentChapterIndex];
+      const imgObj = chapterImages[currentChapterIndex];
 
       document.getElementById("chapter-badge").textContent = `Adhyāya ${currentChapterIndex + 1} of ${chapters.length}`;
       document.getElementById("chapter-title").textContent = ch.chapterTitle || "";
@@ -751,10 +839,72 @@ Provide exactly 4 chapters.`;
       document.getElementById("chapter-translation").textContent = ch.translation || "";
       document.getElementById("chapter-meaning").textContent = ch.adhyatmikaMeaning || "";
 
+      // Update Visual Frame with Chapter-Specific Sacred Painting
+      const frame = document.getElementById("chapter-visual-frame");
+      if (imgObj && imgObj.url) {
+        frame.innerHTML = `
+          <img src="${imgObj.url}" alt="${ch.chapterTitle}" class="w-full h-full min-h-[340px] object-cover animate-ken-burns" />
+          <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-amber-400/40 text-[11px] font-semibold text-amber-200">
+              Adhyāya ${currentChapterIndex + 1} Sacred Art
+            </span>
+          </div>
+          <div class="absolute bottom-14 inset-x-0 bg-gradient-to-t from-black/90 to-transparent px-3.5 py-2">
+            <p class="text-[11px] text-amber-200/85 line-clamp-1">${imgObj.caption || ch.chapterTitle}</p>
+          </div>
+        `;
+      } else {
+        frame.innerHTML = `
+          <div class="w-full h-full min-h-[340px] flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-amber-950/50 via-black to-orange-950/40">
+            <span class="font-devanagari text-6xl text-amber-400 mb-3">ॐ</span>
+            <p class="font-display text-sm font-bold text-amber-200">${ch.chapterTitle}</p>
+            <p class="text-xs text-amber-200/60 mt-1">Tap "Paint Scene with AI" below to generate a custom painting for this chapter</p>
+          </div>
+        `;
+      }
+
       const dotsContainer = document.getElementById("chapter-dots");
       dotsContainer.innerHTML = chapters
         .map((_, idx) => `<button onclick="goToChapter(${idx})" class="w-2.5 h-2.5 rounded-full ${idx === currentChapterIndex ? 'bg-amber-400 scale-125' : 'bg-amber-500/30'} transition"></button>`)
         .join("");
+    }
+
+    async function generateCustomChapterArt() {
+      if (!currentStoryData?.chapters?.length) return;
+      const cfg = getApiConfig();
+      if (!cfg.proxyUrl) return;
+
+      const ch = currentStoryData.chapters[currentChapterIndex];
+      const btn = document.getElementById("btn-paint-ai");
+      const originalText = btn.textContent;
+      btn.textContent = "⏳ Painting Scene...";
+      btn.disabled = true;
+
+      try {
+        const imgEndpoint = cfg.proxyUrl.replace(/\/api\/grantha-oracle\/?$/, "/api/grantha-image");
+        const res = await fetch(imgEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: ch.aiArtPrompt || `${currentStoryData.title}: ${ch.chapterTitle}`
+          })
+        });
+        const data = await res.json();
+        if (res.ok && data.imageUrl) {
+          chapterImages[currentChapterIndex] = {
+            url: data.imageUrl,
+            caption: `AI Sacred Painting — ${ch.chapterTitle}`
+          };
+          updateChapterView();
+        } else {
+          alert(data.error || "Image generator is busy right now. Try again in a moment.");
+        }
+      } catch (e) {
+        alert("Could not generate custom painting: " + e.message);
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
     }
 
     function prevChapter() {
@@ -781,86 +931,6 @@ Provide exactly 4 chapters.`;
       const utter = new SpeechSynthesisUtterance(`${ch.chapterTitle}. ${ch.storyNarrative}. Inner meaning: ${ch.adhyatmikaMeaning}`);
       utter.rate = 0.95;
       window.speechSynthesis.speak(utter);
-    }
-
-    /********************************************************************
-     * 6. HTML5 SACRED PROCEDURAL ANIMATION ENGINE
-     ********************************************************************/
-    function startSacredCanvasAnimation(theme) {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      const canvas = document.getElementById("sacred-canvas");
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      let t = 0;
-
-      function draw() {
-        t += 0.015;
-        ctx.fillStyle = "#090504";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        const cx = canvas.width / 2;
-        const cy = canvas.height / 2;
-
-        // Sacred Golden Aura
-        const grad = ctx.createRadialGradient(cx, cy, 10, cx, cy, 200);
-        grad.addColorStop(0, "rgba(245, 158, 11, 0.28)");
-        grad.addColorStop(0.6, "rgba(234, 88, 12, 0.08)");
-        grad.addColorStop(1, "transparent");
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.save();
-        ctx.translate(cx, cy);
-
-        // Rotating Yantra Rings
-        for (let r = 40; r <= 140; r += 32) {
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(245, 158, 11, ${0.45 - r / 400})`;
-          ctx.lineWidth = 1.5;
-          ctx.arc(0, 0, r, 0, Math.PI * 2);
-          ctx.stroke();
-
-          const petals = theme === "samudra_manthan" ? 8 : 12;
-          for (let i = 0; i < petals; i++) {
-            const angle = (i * Math.PI * 2) / petals + (r % 2 === 0 ? t : -t);
-            const px = Math.cos(angle) * r;
-            const py = Math.sin(angle) * r;
-            ctx.beginPath();
-            ctx.fillStyle = "#F59E0B";
-            ctx.arc(px, py, 2.5, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-
-        // Sacred Geometry Star
-        ctx.rotate(t * 0.4);
-        ctx.strokeStyle = "rgba(251, 191, 36, 0.65)";
-        ctx.lineWidth = 1.5;
-        for (let j = 0; j < 2; j++) {
-          ctx.rotate(Math.PI / 3);
-          ctx.beginPath();
-          for (let k = 0; k < 3; k++) {
-            const ang = (k * Math.PI * 2) / 3;
-            const x = Math.cos(ang) * 85;
-            const y = Math.sin(ang) * 85;
-            if (k === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-          }
-          ctx.closePath();
-          ctx.stroke();
-        }
-        ctx.restore();
-
-        // Center Om Emblem
-        ctx.fillStyle = "#FDE68A";
-        ctx.font = "bold 34px 'Noto Serif Devanagari', serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText("ॐ", cx, cy);
-
-        animationFrameId = requestAnimationFrame(draw);
-      }
-      draw();
     }
 
     /********************************************************************
@@ -938,7 +1008,7 @@ Provide exactly 4 chapters.`;
           <strong>${title}</strong> is a revered canonical scripture within <em>${category}</em> in the 307-Grantha Sanātana Kosha.
         </p>
         <p class="text-amber-200/75">
-          Click <strong>"Explore in AI Oracle"</strong> below or customize your question to generate a complete 4-chapter visual narrative, authentic Sanskrit shlokas, and philosophical commentary from <strong>${title}</strong>.
+          Click <strong>"Explore in AI Oracle"</strong> below or customize your question to generate a complete 4-chapter illustrated narrative, authentic Sanskrit shlokas, and philosophical commentary from <strong>${title}</strong>.
         </p>
       `;
       document.getElementById("grantha-modal").classList.remove("hidden");
